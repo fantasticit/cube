@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "antd": "^4.6.2",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1"
@@ -16,6 +17,7 @@
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
     "@fantasticit/code-lint": "^0.0.5",
+    "@types/react": "^16.9.49",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "commitizen": "^4.2.1",
@@ -30,7 +32,9 @@
     "eslint-plugin-react-hooks": "^4.1.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.3.0",
+    "node-sass": "^4.14.1",
     "prettier": "^2.1.1",
+    "sass": "^1.26.10",
     "stylelint": "^13.7.0",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-order": "^4.1.0",
