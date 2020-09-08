@@ -1,0 +1,105 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  --editor-primary-color: #ff0064;
+  --editor-main-bgcolor: #f2f3f4; // 编辑器主题背景色
+  --editor-pannel-bgcolor: #ffffff; // 编辑器面板背景色
+  --editor-page-preview-pannel-width: 375px; // 编辑器页面预览编辑区域宽度
+  --editor-border-color: #d9d9d9; // 编辑器边框颜色
+  --editor-text-color-primary: rgba(0, 0, 0, .85); // 编辑器主要字体颜色
+  --editor-text-color-second: rgba(0, 0, 0, .65); // 编辑器次要字体颜色
+  --editor-text-color-thirty: rgba(0, 0, 0, .45); // 编辑器辅助字体颜色
+  --editor-text-font-size-title: 16px; // 编辑器标题文字大小
+  --editor-text-font-size-desc: 14px; // 编辑器说明文字大小
+  --editor-text-font-size-helper: 12px; // 编辑器帮助文字大小
+  --editor-padding-horizontal: 16px; // 编辑器头部水平方向内边距
+  --editor-padding-horizontal-medium: 12px; // 编辑器头部水平方向内边距
+  --editor-padding-horizontal-small: 8px; // 编辑器头部水平方向内边距
+  --editor-padding-vertical: 16px; // 编辑器头部水平方向内边距
+  --editor-padding-vertical-medium: 12px; // 编辑器头部水平方向内边距
+  --editor-padding-vertical-small: 8px; // 编辑器头部水平方向内边距
+  --editor-header-box-shadow: 0 1px 7px rgba(0, 0, 0, .06); // 编辑器头部影音
+  --editor-page-component-pannel-boxshadow: 3px 0 16px rgba(0, 0, 0, .06); // 编辑器组件面板阴影
+  --editor-page-preview-pannel-boxshadow: 0 3px 16px 0 rgba(0, 0, 0, .04); // 编辑器页面预览面板阴影
+  --editor-page-preview-pannel-hover-bgcolor: #ededef; // 编辑器预览面板hover组件时背景色
+  --editor-page-component-eidtor-pannel-boxshadow:
+    0 3px 16px
+    rgba(0, 0, 0, .06); // 编辑器组件属性编辑器面板阴影
+
+  img {
+    opacity: 1;
+  }
+}
+
+.component-indicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  display: flex;
+  padding: 1px 2px;
+  border: 1px solid #dddddd;
+  border-radius: 1px;
+  color: #0e77ca;
+  background-color: rgba(240, 240, 255, .8);
+  opacity: 0;
+  font-size: 12px;
+  transform: translate(0, -100%);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.component-indicator-wrapper {
+  position: relative;
+
+  &:hover {
+    .component-indicator {
+      opacity: 1;
+    }
+  }
+}
+
+.CodeMirror {
+  width: 100% !important;
+  height: auto;
+  padding: 0;
+  border-radius: 4px;
+  color: #3d3d3d;
+  box-shadow: inset 0 0 0 1px #dedede;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: unset;
+}
+
+.CodeMirror-vscrollbar,
+.CodeMirror-hscrollbar,
+.CodeMirror-scrollbar-filler,
+.CodeMirror-gutter-filler {
+  display: none !important;
+}

@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100vw;
+  height: 100vh;
+  // height: calc(100vh - 300px);
+  overflow: hidden;
+
+  > main {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    width: calc(100vw - 300px);
+    height: 100%;
+
+    > section:first-of-type {
+      width: 300px;
+    }
+
+    > section:last-of-type {
+      flex: 1;
+      background: #f8f8f8;
+      overflow: auto;
+      border-right: 1px solid #dddddd;
+    }
+  }
+
+  > aside {
+    width: 300px;
+  }
+}
+
+.componentRenderWrapper {
+  position: relative;
+
+  &:hover {
+    .componentNameIndicator {
+      opacity: 1;
+    }
+  }
+}
+
+.componentIndicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  padding: 1px 2px;
+  border: 1px solid #dddddd;
+  border-radius: 1px;
+  color: #0e77ca;
+  background-color: rgba(240, 240, 255, .8);
+  font-size: 12px;
+  transform: translate(0, -100%);
+  cursor: pointer;
+  z-index: 1000;
+}

@@ -1,0 +1,77 @@
+.container {
+  padding: 0 12px;
+  background-color: #ffffff;
+
+  > header {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    line-height: 39px;
+
+    > span {
+      font-weight: bold;
+    }
+  }
+}
+
+.unioEditorWrapper {
+  padding: var(--editor-padding-vertical-medium) 0;
+
+  > div.title {
+    padding: var(--editor-padding-vertical-medium) 0;
+    color: var(--editor-text-color-primary);
+    font-size: var(--editor-text-font-size-helper);
+  }
+
+  :global {
+    .ant-collapse-borderless {
+      background-color: transparent;
+    }
+
+    .ant-collapse-item-active {
+      background-color: var(--editor-main-bgcolor);
+    }
+
+    .ant-collapse-borderless > .ant-collapse-item {
+      border-color: var(--editor-border-color);
+    }
+
+    .ant-collapse-header {
+      display: flex;
+      align-items: center;
+      background-color: var(--editor-pannel-bgcolor);
+
+      span.anticon {
+        color: var(--editor-text-color-thirty) !important;
+      }
+    }
+
+    .ant-collapse-item-active .ant-collapse-header {
+      background-color: transparent;
+    }
+  }
+
+  span.pannellHeader {
+    display: inline-block;
+    flex: 1;
+    padding-right: var(--editor-padding-horizontal-small);
+    margin: 0;
+    color: var(--editor-text-color-primary);
+    overflow: hidden;
+    font-size: var(--editor-text-font-size-helper);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  a.more {
+    display: block;
+    padding-top: var(--editor-padding-vertical-medium);
+    padding-left: 12px;
+    background-color: transparent;
+    font-size: var(--editor-text-font-size-helper);
+
+    > span:first-of-type {
+      margin-right: 8px;
+    }
+  }
+}

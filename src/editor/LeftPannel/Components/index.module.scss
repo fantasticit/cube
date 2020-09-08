@@ -1,0 +1,24 @@
+.wrapper {
+  user-select: none;
+
+  ul {
+    padding: 1em;
+  }
+
+  li {
+    height: 36px;
+    border: 1px dashed #dddddd;
+    color: #333333;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    cursor: move;
+
+    + li {
+      margin-top: 1em;
+    }
+  }
+}

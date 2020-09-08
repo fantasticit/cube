@@ -13,3 +13,4 @@ bin
 lint-staged.config.js
 stylelint.config.js
 commitlint.config.js
+next.config.js

@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  height: 100%;
+  border-right: 1px solid #dddddd;
+
+  > aside {
+    width: 45px;
+    overflow: hidden;
+    font-size: 1.2em;
+    border-right: 1px solid #dddddd;
+
+    ul {
+      height: 100%;
+      padding: 1rem 0;
+    }
+
+    li {
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      cursor: pointer;
+
+      &.active {
+        color: #1861d5;
+      }
+    }
+  }
+
+  > main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+
+    > header {
+      height: 40px;
+      padding: 0 8px;
+      border-bottom: 1px solid #dddddd;
+      line-height: 39px;
+    }
+
+    > div {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+}
