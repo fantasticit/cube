@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { uuid } from 'utils/uuid';
+import { Drawer } from 'antd';
+import { CodeOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Store } from '@/store';
 import { LeftPannel } from './LeftPannel';
 import { RightPannel } from './RightPannel';
@@ -8,6 +11,12 @@ import { Stage } from './Stage';
 import styles from './index.module.scss';
 
 const components = [
+  {
+    id: uuid(),
+    name: 'text1',
+    component: 'Text',
+    props: {},
+  },
   {
     id: uuid(),
     name: 'container1',
@@ -86,8 +95,8 @@ const components = [
     component: 'JSONSchemaForm',
     props: {
       schema: {
-        title: 'A registration form',
-        description: 'A simple form example.',
+        title: '分类',
+        description: '请在表格 2 中选中一行数据.',
         type: 'object',
         required: ['label', 'value'],
         properties: {
@@ -112,26 +121,73 @@ const components = [
   },
 ];
 
+const Header = observer(({ store }) => {
+  const [codeVisible, setCodeVisible] = useState(false);
+  const [previewVisible, setPreviewVisible] = useState(false);
+
+  return (
+    <>
+      <header>
+        <div className={styles.logo}>Odin</div>
+        <nav>
+          <ul>
+            <li>
+              <CodeOutlined onClick={() => setCodeVisible(true)} />
+            </li>
+            <li>
+              <PlayCircleOutlined onClick={() => setPreviewVisible(true)} />
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <Drawer
+        title={'代码'}
+        width="80vw"
+        visible={codeVisible}
+        onClose={() => setCodeVisible(false)}
+        footer={null}
+      >
+        <div className="editor-code-wrapper">
+          <CodeMirror
+            value={JSON.stringify(store, null, 2)}
+            options={{
+              mode: 'javascript',
+              theme: 'default',
+              lineNumbers: true,
+            }}
+          />
+        </div>
+      </Drawer>
+      <Drawer
+        title={'预览'}
+        width="80vw"
+        visible={previewVisible}
+        onClose={() => setPreviewVisible(false)}
+        footer={null}
+      >
+        <Stage store={store} preview={true} />
+      </Drawer>
+    </>
+  );
+});
+
 const Main = observer(({ store }) => {
   return (
-    <div className={styles.container}>
-      <main>
-        <section>
-          <LeftPannel store={store} />
-        </section>
-        <section>
-          <Stage store={store} />
-        </section>
-      </main>
-      <aside>
+    <main>
+      <section>
+        <LeftPannel store={store} />
+      </section>
+      <section>
+        <Stage store={store} />
+      </section>
+      <section>
         <RightPannel store={store} />
-      </aside>
-    </div>
+      </section>
+    </main>
   );
 });
 
 export const Editor = () => {
-  // const [, setV] = useState(0);
   const store = new Store({
     components,
     queries: [
@@ -152,24 +208,11 @@ export const Editor = () => {
       },
     ],
   });
-  // store.subscribe(() => setV((v) => v + 1));
 
   return (
-    <>
+    <div className={styles.container}>
+      <Header store={store} />
       <Main store={store} />
-      {/* <section style={{ height: 300 }}>
-        <CodeMirror
-          value={JSON.stringify(store.components, null, 2)}
-          options={{
-            mode: 'javascript',
-            theme: 'default',
-            lineNumbers: true,
-          }}
-          onChange={(_, __, value) => {
-            store.components = JSON.parse(value);
-          }}
-        />
-      </section> */}
-    </>
+    </div>
   );
 };

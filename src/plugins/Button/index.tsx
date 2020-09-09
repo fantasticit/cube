@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button as AButton } from 'antd';
 
-export const Button = (props) => {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export const Button = ({ runtimeName, store, ...props }) => {
   return <AButton {...props} />;
 };
 

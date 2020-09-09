@@ -1,40 +1,37 @@
 import React from 'react';
+import { getProps, getSchema } from '@/plugins/shared';
+import { Registry } from './registry';
 import { Button } from './Button';
 import { Container } from './Container';
-import { Table } from './Table';
 import { JSONSchemaForm } from './JSONSchemaForm';
+import { Table } from './Table';
+import { Text } from './Text';
 
-export const plugins = new Map();
+export const plugins = new Registry();
 
-const createWrapperComponent = (Component) => {
+const withCommon = (Component) => {
+  Component.defaultProps = getProps(Component.defaultProps);
+  Component.schema = getSchema(Component.schema);
+  return Component;
+};
+
+const withWrapper = (Component) => {
   const WrappedComponent = (props) => {
     return (
-      <div
-        className="component-indicator-wrapper"
-        style={{
-          padding: 2,
-          background: 'transparent',
-          display: 'inline-block',
-          position: 'relative',
-        }}
-      >
+      <div className="component-indicator-wrapper">
         {props.indicator}
         <Component {...props} />
       </div>
     );
   };
-
   WrappedComponent.componentInfo = Component.componentInfo;
   WrappedComponent.defaultProps = Component.defaultProps;
   WrappedComponent.schema = Component.schema;
-
   return WrappedComponent;
 };
 
-plugins.set(Button.componentInfo.name.toLowerCase(), createWrapperComponent(Button));
-plugins.set(Container.componentInfo.name.toLowerCase(), Container);
-plugins.set(Table.componentInfo.name.toLowerCase(), createWrapperComponent(Table));
-plugins.set(
-  JSONSchemaForm.componentInfo.name.toLowerCase(),
-  createWrapperComponent(JSONSchemaForm)
-);
+plugins.register(withCommon(Text));
+plugins.register(withCommon(Container));
+plugins.register(withWrapper(withCommon(Button)));
+plugins.register(withCommon(Table));
+plugins.register(withCommon(JSONSchemaForm));

@@ -80,12 +80,10 @@ export class Store {
     /* eslint-disable prefer-const */
     let { props, component: componentName } = component;
     const Component = plugins.get(componentName.toLowerCase());
-
-    props = { ...Component.defaultProps, ...props };
-
     if (!Component) {
       return;
     }
+    props = { ...Component.defaultProps, ...props };
     const schema = Component.schema;
     this.selectedComponentInfo = { props, schema, path };
   };

@@ -73,15 +73,25 @@ export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) 
                 })}
               </Panel>
             ) : (
-              <Panel
-                header={<span className={style.pannellHeader}>{subSchema.title || '组'}</span>}
-                key={key}
-              >
+              // <Panel
+              //   header={
+              //     <span className={style.pannellHeader}>
+              //       {renderEditorItem(key, value[key], subSchema[key], (key, newVal) => {
+              //         set(rootNewValue, `${key}`, newVal);
+              //         rootOnChange(rootNewValue);
+              //       })}
+              //     </span>
+              //   }
+              //   showArrow={false}
+              //   // disabled={true}
+              //   key={key}
+              // ></Panel>
+              <div className={style.pannellHeader} key={key}>
                 {renderEditorItem(key, value[key], subSchema[key], (key, newVal) => {
                   set(rootNewValue, `${key}`, newVal);
                   rootOnChange(rootNewValue);
                 })}
-              </Panel>
+              </div>
             );
           })}
         </Collapse>
@@ -93,7 +103,7 @@ export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) 
 
   return (
     <div className={style.unioEditorWrapper}>
-      <div className={style.title}>{schema.title || '组'}</div>
+      <div className={style.title}>{schema.title || '组2'}</div>
       <Collapse expandIconPosition={'right'} bordered={false} accordion={true}>
         {value.map((v, index) => {
           const key = bindKey + '_' + index;

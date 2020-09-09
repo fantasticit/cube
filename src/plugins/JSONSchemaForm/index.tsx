@@ -1,11 +1,15 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
+import { transformStyle } from '@/plugins/shared';
 
 export const JSONSchemaForm = ({
-  data,
+  // store,
+  indicator,
+  style,
   schema,
-  showLoading = false,
+  data,
   layout,
+  showLoading,
   submitText,
   onSubmit,
 }) => {
@@ -34,7 +38,7 @@ export const JSONSchemaForm = ({
   );
 
   /* eslint-disable prefer-const */
-  let { title = '', required = [], properties = null } = schema;
+  let { title = '', description = '', required = [], properties = null } = schema;
   if (!properties) {
     properties = Object.keys(typeof data === 'object' ? data : {}).reduce((a, c) => {
       a[c] = {
@@ -61,14 +65,15 @@ export const JSONSchemaForm = ({
 
   return (
     <div
+      className="component-indicator-wrapper"
       style={{
-        padding: 16,
         background: '#fff',
-        boxShadow: '0 0 16px rgba(0,0,0,.03)',
-        border: '1px solid #ddd',
+        ...transformStyle(style),
       }}
     >
-      <h1>{title}</h1>
+      {indicator}
+      {title && <h1>{title}</h1>}
+      {description && <p>{description}</p>}
       <Form name="basic" layout={layout} ref={form} onFinish={onFinish}>
         {Object.keys(properties).map((key) => {
           const property = properties[key];
@@ -111,7 +116,7 @@ JSONSchemaForm.defaultProps = {
   onSubmit: '',
   submitText: '提交',
   showLoading: true,
-  layout: 'horizontal',
+  layout: 'vertical',
 };
 
 JSONSchemaForm.schema = {

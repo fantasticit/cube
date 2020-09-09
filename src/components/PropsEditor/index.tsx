@@ -26,15 +26,6 @@ export const PropsEditor = ({ props: defaultProps, schema, onChange }) => {
 
   return (
     <div className={style.container}>
-      <header>
-        <span>Inspector</span>
-        {/* <CloseOutlined
-          style={{ cursor: 'pointer' }}
-          onClick={() => {
-            setOpend(false);
-          }}
-        /> */}
-      </header>
       <ul>
         {Object.keys(schema).map((key) => {
           return (

@@ -1,16 +1,8 @@
 import React, { useCallback } from 'react';
 import { Col } from 'antd';
+import { transformStyle } from '@/plugins/shared';
 
-export const Container = ({
-  store,
-  indicator,
-  path,
-  span = 12,
-  offset = 0,
-  bordered,
-  boxShadow,
-  children,
-}) => {
+export const Container = ({ store, indicator, path, style, span = 12, offset = 0, children }) => {
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
   }, []);
@@ -33,9 +25,7 @@ export const Container = ({
       style={{
         position: 'relative',
         background: '#fff',
-        padding: 10,
-        boxShadow: boxShadow ? '0 0 16px rgba(0,0,0,.03)' : 'none',
-        border: bordered ? '1px solid #ddd' : 0,
+        ...transformStyle(style),
       }}
       span={span}
       offset={offset}
@@ -44,6 +34,10 @@ export const Container = ({
       {store.isEmptyChildNode(children) ? (
         <div
           style={{
+            position: 'relative',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
             height: '5rem',
             display: 'flex',
             alignItems: 'center',

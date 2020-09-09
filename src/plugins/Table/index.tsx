@@ -1,7 +1,16 @@
 import React from 'react';
 import { Table as ATable } from 'antd';
+import { transformStyle } from '@/plugins/shared';
 
-export const Table = ({ data, loading = false, columns: defaultColumns, store, runtimeName }) => {
+export const Table = ({
+  store,
+  runtimeName,
+  indicator,
+  style,
+  data,
+  loading = false,
+  columns: defaultColumns,
+}) => {
   const columns = defaultColumns.length
     ? defaultColumns
     : data &&
@@ -15,18 +24,26 @@ export const Table = ({ data, loading = false, columns: defaultColumns, store, r
         }));
 
   return (
-    <ATable
-      loading={loading}
-      rowKey={columns && columns[0] && columns[0].key}
-      dataSource={Array.isArray(data) ? data : []}
-      columns={columns}
-      rowSelection={{
-        onSelect: (record) => {
-          store.setValue(`${runtimeName}.selectedRow.data`, record);
-        },
+    <div
+      className="component-indicator-wrapper"
+      style={{
+        background: '#fff',
+        ...transformStyle(style),
       }}
-      // scroll={{ x: '100%', y: 300 }}
-    />
+    >
+      {indicator}
+      <ATable
+        loading={loading}
+        rowKey={columns && columns[0] && columns[0].key}
+        dataSource={Array.isArray(data) ? data : []}
+        columns={columns}
+        rowSelection={{
+          onSelect: (record) => {
+            store.setValue(`${runtimeName}.selectedRow.data`, record);
+          },
+        }}
+      />
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ interface IProps {
   store: Store;
 }
 
-const components = Array.from(plugins.values());
+const components = plugins.getAll();
 
 export const Components: React.FC<IProps> = () => {
   const onDragStart = useCallback((evt) => {
