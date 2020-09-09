@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
+import { Button } from 'antd';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import style from './index.module.scss';
 
-let lastPropsValue = null;
+let lastValue = null;
 
-export const JSONEditor = ({ schema, value: defaultValue, onChange }) => {
-  const [value, setValue] = useState(JSON.stringify(defaultValue, null, 2));
+export const JSONEditor = ({ schema, value: propsValue, onChange }) => {
+  const [value, setValue] = useState(JSON.stringify(propsValue, null, 2));
 
   useEffect(() => {
-    if (isEqual(defaultValue, lastPropsValue)) {
+    if (isEqual(lastValue, propsValue)) {
       return;
     }
-    lastPropsValue = defaultValue;
-    setValue(JSON.stringify(defaultValue, null, 2));
-  }, [defaultValue]);
+
+    lastValue = propsValue;
+    setValue(JSON.stringify(propsValue, null, 2));
+  }, [propsValue]);
+
+  const onClick = useCallback(() => {
+    let json = null;
+    /* eslint-disable no-empty */
+    try {
+      json = JSON.parse(value);
+    } catch (e) {}
+    json && onChange(json);
+  }, [value, onChange]);
 
   return (
     <div className={style.wrapper}>
@@ -22,7 +33,7 @@ export const JSONEditor = ({ schema, value: defaultValue, onChange }) => {
         {schema.title || '文本'}
         <span className={style.desc}>{schema.desc}</span>
       </p>
-      <div>
+      <main>
         <CodeMirror
           value={value}
           options={{
@@ -33,16 +44,22 @@ export const JSONEditor = ({ schema, value: defaultValue, onChange }) => {
           onBeforeChange={(_, __, code) => {
             setValue(code);
           }}
-          onChange={(_, __, code) => {
-            let value = null;
-            /* eslint-disable no-empty */
-            try {
-              value = JSON.parse(code);
-            } catch (e) {}
-            value && onChange(value);
-          }}
+          // onChange={(_, __, code) => {
+          //   let value = null;
+          //   /* eslint-disable no-empty */
+          //   try {
+          //     value = JSON.parse(code);
+          //   } catch (e) {}
+          //   value && onChange(value);
+          //   value && (lastValue = value);
+          // }}
         />
-      </div>
+        <footer>
+          <Button size="small" onClick={onClick}>
+            确认
+          </Button>
+        </footer>
+      </main>
     </div>
   );
 };

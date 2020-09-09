@@ -13,7 +13,7 @@ const components = [
     name: 'container1',
     component: 'Container',
     props: {
-      span: 12,
+      span: 24,
       children: [
         {
           id: uuid(),
@@ -54,7 +54,7 @@ const components = [
     name: 'container2',
     component: 'Container',
     props: {
-      span: 12,
+      span: 24,
       offset: 0,
       children: [
         {
@@ -94,7 +94,7 @@ const components = [
           id: {
             title: 'ID',
             type: 'string',
-            hidden: true,
+            hidden: false,
           },
           label: {
             title: 'Label',
