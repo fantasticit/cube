@@ -113,7 +113,8 @@ export class Store {
    * @param componentName
    */
   @action addComponent = (componentName) => {
-    this.components.push(this.generateComponentByName(componentName));
+    const component = this.generateComponentByName(componentName);
+    component && this.components.push(component);
   };
 
   /**
@@ -126,7 +127,8 @@ export class Store {
     segments.reduce((accu, path, idx) => {
       if (idx === segments.length - 1) {
         accu[path].children = accu[path].children || [];
-        accu[path].children.push(this.generateComponentByName(componentName));
+        const component = this.generateComponentByName(componentName);
+        component && accu[path].children.push(component);
       } else {
         accu[path] = accu[path] || {};
       }

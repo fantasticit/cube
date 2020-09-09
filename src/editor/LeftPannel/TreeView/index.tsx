@@ -38,7 +38,7 @@ const transformLeaf2Data = (leaf) => {
 
 export const TreeView: React.FC<IProps> = observer(({ store }) => {
   const components = store.components;
-  const treeData = components.map(transformData2Leaf);
+  const treeData = components.filter(Boolean).map(transformData2Leaf);
 
   const onSelect = useCallback(
     (_, { node }) => {
@@ -111,7 +111,7 @@ export const TreeView: React.FC<IProps> = observer(({ store }) => {
         }
       }
 
-      store.components = data.map(transformLeaf2Data);
+      store.components = data.filter(Boolean).map(transformLeaf2Data);
     },
     [store, treeData]
   );
