@@ -138,14 +138,17 @@ export const Editor = () => {
       {
         name: 'query1',
         url: 'https://api.blog.wipi.tech/api/tag',
+        method: 'get',
       },
       {
         name: 'query2',
         url: 'https://api.blog.wipi.tech/api/category',
+        method: 'get',
       },
       {
         name: 'query3',
         url: 'https://api.blog.wipi.tech/api/category',
+        method: 'post',
       },
     ],
   });

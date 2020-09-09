@@ -57,12 +57,15 @@ export const Query: React.FC<IProps> = observer(({ store }) => {
           </List.Item>
         )}
       />
-      <Modal title={'弹窗'} visible={toAdd || Boolean(toEdited)} onCancel={close} footer={null}>
+      <Modal title={'接口'} visible={toAdd || Boolean(toEdited)} onCancel={close} footer={null}>
         <Form name="basic" ref={form} initialValues={toAdd ? null : toEdited} onFinish={onFinish}>
-          <Form.Item label="Name" name="name" rules={[{ required: true, message: '输入链接' }]}>
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: '请输入' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="URL" name="url" rules={[{ required: true, message: '输入链接' }]}>
+          <Form.Item label="URL" name="url" rules={[{ required: true, message: '请输入' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Method" name="method" rules={[{ required: true, message: '请输入' }]}>
             <Input />
           </Form.Item>
           <Form.Item>

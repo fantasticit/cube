@@ -14,17 +14,21 @@ export const JSONSchemaForm = ({
 
   const onFinish = useCallback(
     (values) => {
-      setLoading(true);
-      onSubmit(values)
-        .then(() => {
-          message.success('提交成功');
-        })
-        .catch((e) => {
-          message.error('提交失败：', e.message || e);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      const promise = onSubmit(values);
+
+      if (promise && promise.then) {
+        setLoading(true);
+        promise
+          .then(() => {
+            message.success('提交成功');
+          })
+          .catch((e) => {
+            message.error('提交失败：', e.message || e);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     },
     [onSubmit]
   );
