@@ -265,16 +265,19 @@ export class Store {
     /* eslint-disable no-param-reassign */
     text = matches[0];
     text = text
-      .replace(/\.(\S?)$/, '')
-      .replace(/^{{/, '')
-      .replace(/}}$/, '');
+      .replace(/^{*/, '')
+      .replace(/}*$/, '')
+      .split(/(\b)(?!\.)/)
+      .join('')
+      .replace(/\.$/, '');
 
-    const getAllFullPath = (path, prefix = '', ret = []) => {
+    const getAllFullPath = (path, prefix = '', ret = [], depth = 1) => {
       let f = prefix ? prefix + '.' + path : path;
       const t = this.getValue(`{{${f}}}`);
-      if (typeof t === 'object') {
+
+      if (typeof t === 'object' && depth < 2) {
         const subs = Object.keys(t);
-        subs.forEach((sub) => getAllFullPath(sub, f, ret));
+        subs.forEach((sub) => getAllFullPath(sub, f, ret, depth + 1));
       } else {
         ret.push(f);
       }

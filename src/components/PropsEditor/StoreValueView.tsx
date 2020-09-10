@@ -1,20 +1,13 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { AutoComplete, Popover } from 'antd';
-import { ReactJsonViewProps } from 'react-json-view';
-import style from './index.module.scss';
-
-let ReactJson: React.ComponentType<ReactJsonViewProps> = () => null;
-const resultStyle = { maxWidth: '50vw', maxHeight: '60vh', padding: 5, overflow: 'auto' };
+import { UnControlled as CodeMirror } from 'react-codemirror2';
 
 export const StoreValueView = ({ store, visible, value, onChange, children }) => {
-  useEffect(() => {
-    import('react-json-view').then((res) => (ReactJson = res.default));
-  }, []);
-
-  const Result = useMemo(() => {
+  const result = useMemo(() => {
     if (!value) {
-      return null;
+      return '';
     }
+
     const path = value.replace(/\.$/, '').replace(/^{{/, '').replace(/}}$/, '');
     let json = store.getValue(`{{${path}}}`);
 
@@ -32,18 +25,18 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       return null;
     }
 
-    return typeof json === 'object' ? (
-      <ReactJson src={json} style={resultStyle} />
-    ) : (
-      <div style={resultStyle}>{json}</div>
-    );
+    return JSON.stringify(json, null, 2);
   }, [store, value]);
 
   return (
     <Popover
       placement={'left'}
       visible={visible}
-      content={<div className={style.resultWrapper}>{Result}</div>}
+      content={
+        <div className={'store-value-view-wrapper'}>
+          <CodeMirror value={result} />
+        </div>
+      }
     >
       <AutoComplete
         style={{ width: '100%' }}
