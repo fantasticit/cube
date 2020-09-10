@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { uuid } from 'utils/uuid';
 import { Drawer, Tooltip } from 'antd';
@@ -217,6 +217,7 @@ const Header = observer(({ store }) => {
               mode: 'javascript',
               theme: 'default',
               lineNumbers: true,
+              fullscreen: true,
             }}
           />
         </div>
@@ -271,6 +272,11 @@ export const Editor = () => {
       },
     ],
   });
+
+  useEffect(() => {
+    // codemirror 语法高亮
+    Promise.all([import('codemirror/mode/javascript/javascript')]);
+  }, []);
 
   return (
     <div className={styles.container}>

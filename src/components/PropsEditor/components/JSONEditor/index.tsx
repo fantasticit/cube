@@ -39,7 +39,7 @@ export const JSONEditor = ({ schema, value: propsValue, onChange }) => {
           options={{
             mode: 'javascript',
             theme: 'default',
-            lineNumbers: false,
+            lineNumbers: true,
           }}
           onBeforeChange={(_, __, code) => {
             setValue(code);

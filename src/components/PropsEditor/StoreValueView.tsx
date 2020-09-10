@@ -22,7 +22,7 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       json === `}` ||
       json === `{{${value}}}`
     ) {
-      return null;
+      return '';
     }
 
     return JSON.stringify(json, null, 2);
@@ -31,10 +31,18 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
   return (
     <Popover
       placement={'left'}
-      visible={visible}
+      visible={result && result.length && visible}
       content={
         <div className={'store-value-view-wrapper'}>
-          <CodeMirror value={result} />
+          <CodeMirror
+            value={result}
+            options={{
+              mode: 'javascript',
+              theme: 'default',
+              lineNumbers: true,
+              readOnly: 'nocursor',
+            }}
+          />
         </div>
       }
     >
