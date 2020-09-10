@@ -1,12 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { AutoComplete, Popover } from 'antd';
+import { ReactJsonViewProps } from 'react-json-view';
 import style from './index.module.scss';
-import dynamic from 'next/dynamic';
-const ReactJson = dynamic(() => import('react-json-view'));
 
+let ReactJson: React.ComponentType<ReactJsonViewProps> = () => null;
 const resultStyle = { maxWidth: '50vw', maxHeight: '60vh', padding: 5, overflow: 'auto' };
 
 export const StoreValueView = ({ store, visible, value, onChange, children }) => {
+  useEffect(() => {
+    import('react-json-view').then((res) => (ReactJson = res.default));
+  }, []);
+
   const Result = useMemo(() => {
     if (!value) {
       return null;
