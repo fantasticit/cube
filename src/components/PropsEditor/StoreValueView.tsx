@@ -8,20 +8,14 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       return '';
     }
 
-    const path = value.replace(/\.$/, '').replace(/^{{/, '').replace(/}}$/, '');
-    let json = store.getValue(`{{${path}}}`);
+    // const path = String(value).replace(/\.$/, '').replace(/^{{/, '').replace(/}}$/, '');
+    let json = store.getValue(value);
 
     if (typeof json === 'boolean') {
       json = String(json);
     }
 
-    if (
-      json === '' ||
-      json === value ||
-      json === `{{}}` ||
-      json === `}` ||
-      json === `{{${value}}}`
-    ) {
+    if (json === '' || json === value || json === `{{}}` || json === `}`) {
       return '';
     }
 
@@ -47,6 +41,7 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       }
     >
       <AutoComplete
+        value={value}
         style={{ width: '100%' }}
         backfill={true}
         options={store.match(value)}

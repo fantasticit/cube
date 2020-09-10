@@ -4,7 +4,6 @@ import { transformStyle } from '@/plugins/shared';
 
 export const JSONSchemaForm = ({
   // store,
-  indicator,
   style,
   schema,
   data,
@@ -64,14 +63,7 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div
-      className="component-indicator-wrapper"
-      style={{
-        background: '#fff',
-        ...transformStyle(style),
-      }}
-    >
-      {indicator}
+    <div style={transformStyle(style)}>
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}
       <Form name="basic" layout={layout} ref={form} onFinish={onFinish}>

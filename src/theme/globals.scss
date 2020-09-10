@@ -77,12 +77,26 @@ body {
 
 .component-indicator-wrapper {
   position: relative;
+  // FIXME: 这里会导致编辑和预览 UI 不一致，待修复
   display: inline-block;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: transparent;
   background: transparent;
+  z-index: 100;
 
   &:hover {
     .component-indicator {
       opacity: 1;
+    }
+  }
+
+  &.active,
+  &:hover {
+    border-color: #dddddd;
+
+    .component-indicator-wrapper {
+      border-color: transparent;
     }
   }
 }

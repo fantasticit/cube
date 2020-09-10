@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Col } from 'antd';
 import { transformStyle } from '@/plugins/shared';
 
-export const Container = ({ store, indicator, path, style, span = 12, offset = 0, children }) => {
+export const Container = ({ store, path, style, span = 12, offset = 0, children }) => {
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
   }, []);
@@ -21,23 +21,19 @@ export const Container = ({ store, indicator, path, style, span = 12, offset = 0
     <Col
       onDrop={onDrop}
       onDragOver={onDragOver}
-      className="component-indicator-wrapper"
       style={{
-        position: 'relative',
-        background: '#fff',
         ...transformStyle(style),
       }}
       span={span}
       offset={offset}
     >
-      {indicator}
       {store.isEmptyChildNode(children) ? (
         <div
           style={{
-            position: 'relative',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
+            // position: 'relative',
+            // left: '50%',
+            // top: '50%',
+            // transform: 'translate(-50%, -50%)',
             height: '5rem',
             display: 'flex',
             alignItems: 'center',

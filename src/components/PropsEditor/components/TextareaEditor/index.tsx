@@ -20,7 +20,7 @@ export const TextareaEditor = ({ schema, value, onChange, store }) => {
             onBlur={() => setFocused(false)}
             placeholder={placeholder}
             value={value}
-            autoSize={true}
+            autoSize={{ minRows: 4, maxRows: 12 }}
             onChange={(e) => onChange(e.target.value)}
           />
         </StoreValueView>

@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import React from 'react';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { observable, action, transaction } from 'mobx';
+import { observable, action, transaction, computed } from 'mobx';
 import merge from 'lodash/merge';
 import { plugins } from 'plugins';
 import { uuid } from 'utils/uuid';
@@ -11,6 +11,7 @@ import { FetchStore } from './FetchStore';
 export { FetchStore };
 
 export class Store {
+  @observable _readonly = { value: false };
   @observable listeners = new Map();
   @observable components = [];
   @observable selectedComponentInfo = {
@@ -19,11 +20,20 @@ export class Store {
     path: '',
   }; // 当前选中组件信息
   @observable queries = [];
+  @observable runtime = {};
 
   constructor({ components = [], queries = [] }) {
     this.components = components;
     queries.forEach(this.addQuery);
   }
+
+  @computed get readonly() {
+    return this._readonly.value;
+  }
+
+  @action setReadonly = (value) => {
+    this._readonly.value = value;
+  };
 
   @action on = (type, subscriber) => {
     if (!this.listeners.has(type)) {
@@ -47,7 +57,7 @@ export class Store {
 
   @action addQuery = (query) => {
     this.queries.push(query);
-    this[query.name] = new FetchStore(query);
+    this.runtime[query.name] = new FetchStore(query);
   };
 
   @action generateComponentByName = (componentName) => {
@@ -92,14 +102,16 @@ export class Store {
   @action selectComponent = (path) => {
     const component = this.getComponent(path);
     /* eslint-disable prefer-const */
+
     let { props, component: componentName } = component;
+
     const Component = plugins.get(componentName.toLowerCase());
     if (!Component) {
       return;
     }
-    props = this.mergeProps(Component.defaultProps, props);
+    const merged = this.mergeProps(Component.defaultProps, props);
     const schema = Component.schema;
-    this.selectedComponentInfo = { props, schema, path };
+    this.selectedComponentInfo = { props: merged, schema, path };
   };
 
   /**
@@ -165,7 +177,6 @@ export class Store {
       if (this.selectedComponentInfo.path === path) {
         this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
       }
-
       // FIXME: 属性无法删除
       transaction(() => {
         this[deleted.name] = null;
@@ -194,7 +205,7 @@ export class Store {
     segments.reduce((accu, path) => {
       accu[path] = accu[path] || observable({});
       return accu[path];
-    }, this);
+    }, this.runtime);
   };
 
   /**
@@ -212,7 +223,7 @@ export class Store {
         accu[path] = accu[path] || observable({});
       }
       return accu[path];
-    }, this);
+    }, this.runtime);
   };
 
   /**
@@ -225,31 +236,44 @@ export class Store {
     }
 
     const matches = path.match(/{{(\S+)}}/);
+
     if (!matches || !matches.length) {
       return path;
     }
 
     /* eslint-disable no-param-reassign */
-    path = matches[1];
-    const segements = String(path).split('.');
-    const root = this[segements[0]];
-    const value = segements.reduce((accu, path) => {
+    const segements = String(matches[1]).split('.');
+    const root = this.runtime[segements[0]];
+    const value = segements.reduce((accu, segment) => {
       let r;
       /* eslint-disable no-empty */
       try {
-        r = accu[path];
+        r = accu[segment];
       } catch (e) {}
       if (typeof r === 'boolean' || typeof r === 'number') {
         return r;
       }
       return r || undefined;
-    }, this);
+    }, this.runtime);
 
-    return typeof value === 'undefined'
-      ? path
-      : typeof value === 'object' && root instanceof FetchStore && 'value' in value
-      ? value.value
-      : value;
+    if (typeof value === 'object') {
+      return root instanceof FetchStore && 'value' in value ? value.value : value;
+    }
+
+    if (typeof value === 'function') {
+      return value;
+    }
+
+    let ret = path.replace(/{{(\S+)}}/g, value);
+
+    try {
+      // eslint-disable-next-line no-new-func
+      const fn = new Function(`return ${ret}`);
+      ret = fn.call(window);
+      return ret;
+    } catch (e) {
+      return ret || path;
+    }
   };
 
   @action match = (text) => {

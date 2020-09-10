@@ -94,9 +94,14 @@ const COMMON_PROPS = {
     padding: paddingCss,
     font: fontCss,
   },
+  hidden: '',
 };
 
 const COMMON_SCHEMA = {
+  hidden: {
+    title: '隐藏',
+    type: 'textarea',
+  },
   style: {
     title: '基本样式',
     type: 'children',
@@ -165,4 +170,8 @@ export const transformStyle = (style) => {
   }
 
   return ret;
+};
+
+export const isHidden = (hidden) => {
+  return !/{{(\S+)}}/.test(hidden) && Boolean(hidden);
 };

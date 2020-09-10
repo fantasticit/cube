@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { uuid } from 'utils/uuid';
+// import { uuid } from 'utils/uuid';
 import { Drawer, Tooltip } from 'antd';
 import { CodeOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
@@ -12,22 +12,71 @@ import styles from './index.module.scss';
 
 const components = [
   {
-    id: uuid(),
+    id: '205845d1-a7f5-4ed5-9eea-1f462a9805db',
     name: 'text1',
     component: 'Text',
     props: {
+      style: {
+        width: '100%',
+        height: 'auto',
+        bordered: false,
+        boxShadow: false,
+        margin: {
+          marginTop: 0,
+          marginRight: 0,
+          marginBottom: 14,
+          marginLeft: 0,
+        },
+        padding: {
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+          paddingLeft: 0,
+        },
+        font: {
+          fontSize: 14,
+          color: '#333',
+          textAlign: 'left',
+        },
+      },
       text: '# 文章列表',
     },
   },
   {
-    id: uuid(),
+    id: 'e7bdaec2-dcfe-425c-b8f1-9ee5f92fe223',
     name: 'container1',
     component: 'Container',
     props: {
+      style: {
+        width: '100%',
+        height: 'auto',
+        bordered: false,
+        boxShadow: false,
+        margin: {
+          marginTop: 0,
+          marginRight: 0,
+          marginBottom: 0,
+          marginLeft: 0,
+        },
+        padding: {
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+          paddingLeft: 0,
+        },
+        font: {
+          fontSize: 14,
+          color: '#333',
+          textAlign: 'left',
+        },
+      },
       span: 24,
+      offset: 0,
+      bordered: true,
+      boxShadow: true,
       children: [
         {
-          id: uuid(),
+          id: 'f632d485-af62-426e-9e91-f2f5c0b557f8',
           name: 'JSONSchemaForm1',
           component: 'JSONSchemaForm',
           props: {
@@ -52,8 +101,88 @@ const components = [
     },
   },
   {
-    id: uuid(),
-    name: 'container2',
+    id: '2d95a615-b7e9-42f3-81ff-af38010f109f',
+    name: 'container4',
+    component: 'container',
+    props: {
+      style: {
+        width: '100%',
+        height: 'auto',
+        bordered: false,
+        boxShadow: false,
+        margin: {
+          marginTop: 16,
+          marginRight: 0,
+          marginBottom: 0,
+          marginLeft: 0,
+        },
+        padding: {
+          paddingTop: 0,
+          paddingRight: 0,
+          paddingBottom: 0,
+          paddingLeft: 0,
+        },
+        font: {
+          fontSize: 14,
+          color: '#333',
+          textAlign: 'left',
+        },
+      },
+      span: 12,
+      offset: 0,
+      bordered: true,
+      boxShadow: true,
+      children: [
+        {
+          id: 'f099c841-6121-4d11-ba16-71fe3f82dad6',
+          name: 'button2',
+          component: 'Button',
+          props: {
+            style: {
+              width: '100px',
+              margin: {
+                marginTop: 0,
+                marginRight: 14,
+                marginBottom: 0,
+                marginLeft: 0,
+              },
+            },
+            children: '刷新',
+            loading: '{{query1.isFetching}}',
+            onClick: '{{query1.fetch}}',
+          },
+        },
+        {
+          id: '2618eedb-645f-4f8b-80bd-f083bdc5340c',
+          name: 'text2',
+          component: 'Text',
+          props: {
+            hidden: '!{{table1.selectedRows.length}} || {{table1.selectedRows.length}} <= 0',
+            text: '当前选择 {{table1.selectedRows.length}} 个',
+          },
+        },
+        // {
+        //   id: '73390fe8-e287-425b-aae5-25a2f87c2fdd',
+        //   name: 'text3',
+        //   component: 'Text',
+        //   props: {
+        //     text: '{{table1.selectedRows.length}}',
+        //   },
+        // },
+        // {
+        //   id: '73390fe8-e287-425b-aae5-25a2f87c2fdd',
+        //   name: 'text4',
+        //   component: 'Text',
+        //   props: {
+        //     text: '个',
+        //   },
+        // },
+      ],
+    },
+  },
+  {
+    id: '77191e5b-f1fe-408d-b532-1af17ac31f91',
+    name: 'container3',
     component: 'Container',
     props: {
       span: 24,
@@ -64,7 +193,7 @@ const components = [
       },
       children: [
         {
-          id: uuid(),
+          id: '9d02a929-2135-479a-9f83-dbcee2c418ca',
           name: 'table1',
           component: 'Table',
           props: {
@@ -91,16 +220,6 @@ const components = [
   //           loading: '{{query1.isFetching}}',
   //           data: '{{query1.data.data}}',
   //           columns: [],
-  //         },
-  //       },
-  //       {
-  //         id: uuid(),
-  //         name: 'button1',
-  //         component: 'Button',
-  //         props: {
-  //           children: '刷新',
-  //           loading: '{{query1.isFetching}}',
-  //           onClick: '{{query1.fetch}}',
   //         },
   //       },
 
@@ -184,6 +303,16 @@ const Header = observer(({ store }) => {
   const [codeVisible, setCodeVisible] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
 
+  const preview = () => {
+    store.setReadonly(true);
+    setPreviewVisible(true);
+  };
+
+  const exitPreview = () => {
+    store.setReadonly(false);
+    setPreviewVisible(false);
+  };
+
   return (
     <>
       <header>
@@ -197,7 +326,7 @@ const Header = observer(({ store }) => {
             </li>
             <li>
               <Tooltip title="预览">
-                <PlayCircleOutlined onClick={() => setPreviewVisible(true)} />
+                <PlayCircleOutlined onClick={preview} />
               </Tooltip>
             </li>
           </ul>
@@ -226,7 +355,7 @@ const Header = observer(({ store }) => {
         title={'预览'}
         width="80vw"
         visible={previewVisible}
-        onClose={() => setPreviewVisible(false)}
+        onClose={exitPreview}
         footer={null}
       >
         <Stage store={store} preview={true} />

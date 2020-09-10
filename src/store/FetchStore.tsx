@@ -14,7 +14,7 @@ export class FetchStore {
     this.url = url;
     this.method = method.toLowerCase();
     if (typeof window !== 'undefined' && this.method === 'get') {
-      this.fetch();
+      this.fetch({});
     }
   }
 

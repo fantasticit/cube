@@ -33,6 +33,8 @@ const transformLeaf2Data = (leaf) => {
         }
       : leaf;
   delete ret.children;
+  delete ret.title;
+  delete ret.key;
   return ret;
 };
 

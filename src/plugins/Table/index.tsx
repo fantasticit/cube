@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table as ATable } from 'antd';
 import { transformStyle } from '@/plugins/shared';
 
 export const Table = ({
   store,
   runtimeName,
-  indicator,
   style,
+  rowKey,
   data,
   loading = false,
   columns: defaultColumns,
@@ -31,25 +31,27 @@ export const Table = ({
           key: key,
         }));
 
+  const rowSelection = useMemo(() => {
+    return {
+      onSelect: (record, _, selectedRows) => {
+        store.setValue(`${runtimeName}.selectedRows.data`, selectedRows);
+        store.setValue(`${runtimeName}.selectedRows.length`, selectedRows.length);
+        store.setValue(
+          `${runtimeName}.selectedRow.data`,
+          selectedRows.length > 0 ? record : Object.create(null)
+        );
+      },
+    };
+  }, [store, runtimeName]);
+
   return (
-    <div
-      className="component-indicator-wrapper"
-      style={{
-        background: '#fff',
-        ...transformStyle(style),
-      }}
-    >
-      {indicator}
+    <div style={transformStyle(style)}>
       <ATable
         loading={loading}
-        rowKey={columns && columns[0] && columns[0].key}
+        rowKey={rowKey || (columns && columns[0] && columns[0].key)}
         dataSource={Array.isArray(data) ? data : []}
         columns={columns}
-        rowSelection={{
-          onSelect: (record) => {
-            store.setValue(`${runtimeName}.selectedRow.data`, record);
-          },
-        }}
+        rowSelection={rowSelection}
       />
     </div>
   );
@@ -60,12 +62,17 @@ Table.componentInfo = {
 };
 
 Table.defaultProps = {
+  rowKey: '',
   data: [],
   columns: [],
   loading: false,
 };
 
 Table.schema = {
+  rowKey: {
+    title: 'RowKey',
+    type: 'text',
+  },
   data: {
     title: '数据',
     type: 'text',

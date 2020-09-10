@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button as AButton } from 'antd';
+import { transformStyle } from '@/plugins/shared';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const Button = ({ runtimeName, store, onClick, ...props }) => {
-  return <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />;
+export const Button = ({ runtimeName, store, path, style, onClick, ...props }) => {
+  return (
+    <span style={transformStyle(style)}>
+      <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />
+    </span>
+  );
 };
 
 Button.componentInfo = {

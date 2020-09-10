@@ -2,18 +2,9 @@ import React from 'react';
 import { transformStyle } from '@/plugins/shared';
 import { markdown } from 'utils/markdown';
 
-export const Text = ({ indicator, style, text }) => {
+export const Text = ({ style, text }) => {
   return (
-    <div
-      className="component-indicator-wrapper"
-      style={{
-        background: '#fff',
-        ...transformStyle(style),
-      }}
-    >
-      {indicator}
-      <div dangerouslySetInnerHTML={{ __html: markdown(text) }}></div>
-    </div>
+    <span style={transformStyle(style)} dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
   );
 };
 
@@ -22,7 +13,7 @@ Text.componentInfo = {
 };
 
 Text.defaultProps = {
-  text: '# hello world',
+  text: '文本',
 };
 
 Text.schema = {

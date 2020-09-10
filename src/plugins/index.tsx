@@ -1,5 +1,8 @@
 import React from 'react';
-import { getProps, getSchema } from '@/plugins/shared';
+import cls from 'classnames';
+import { Observer } from 'mobx-react';
+import { getProps, getSchema, transformStyle, isHidden } from '@/plugins/shared';
+
 import { Registry } from './registry';
 import { Button } from './Button';
 import { Container } from './Container';
@@ -17,11 +20,29 @@ const withCommon = (Component) => {
 
 const withWrapper = (Component) => {
   const WrappedComponent = (props) => {
-    return (
-      <div className="component-indicator-wrapper">
-        {props.indicator}
-        <Component {...props} />
-      </div>
+    const { indicator, style, store, path, hidden } = props;
+
+    if (isHidden(hidden)) {
+      return null;
+    }
+
+    return store.readonly ? (
+      <Component {...props} />
+    ) : (
+      <Observer
+        render={() => (
+          <span
+            className={cls({
+              'component-indicator-wrapper': true,
+              'active': store.selectedComponentInfo.path === path,
+            })}
+            style={transformStyle(style)}
+          >
+            {indicator}
+            <Component {...props} />
+          </span>
+        )}
+      ></Observer>
     );
   };
   WrappedComponent.componentInfo = Component.componentInfo;
@@ -30,8 +51,8 @@ const withWrapper = (Component) => {
   return WrappedComponent;
 };
 
-plugins.register(withCommon(Text));
-plugins.register(withCommon(Container));
+plugins.register(withWrapper(withCommon(Text)));
+plugins.register(withWrapper(withCommon(Container)));
 plugins.register(withWrapper(withCommon(Button)));
-plugins.register(withCommon(Table));
-plugins.register(withCommon(JSONSchemaForm));
+plugins.register(withWrapper(withCommon(Table)));
+plugins.register(withWrapper(withCommon(JSONSchemaForm)));

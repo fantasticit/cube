@@ -9,5 +9,11 @@ const converter = new Showdown.Converter({
 });
 
 export function markdown(text) {
-  return converter.makeHtml(text);
+  if (!text) {
+    return '';
+  }
+  let str = converter.makeHtml(String(text));
+  str = str.replace(/<\/?p[^>]*>/g, '');
+  str = str.replace(/<\/?code[^>]*>/g, '');
+  return str;
 }
