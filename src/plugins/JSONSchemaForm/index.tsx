@@ -12,6 +12,7 @@ export const JSONSchemaForm = ({
   showLoading,
   submitText,
   onSubmit,
+  submitSuccessText,
 }) => {
   const form = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -19,22 +20,21 @@ export const JSONSchemaForm = ({
   const onFinish = useCallback(
     (values) => {
       const promise = onSubmit(values);
-
       if (promise && promise.then) {
         setLoading(true);
         promise
           .then(() => {
-            message.success('提交成功');
+            submitSuccessText && message.success(submitSuccessText);
           })
           .catch((e) => {
-            message.error('提交失败：', e.message || e);
+            message.error('请求失败：', e.message || e);
           })
           .finally(() => {
             setLoading(false);
           });
       }
     },
-    [onSubmit]
+    [onSubmit, submitSuccessText]
   );
 
   /* eslint-disable prefer-const */
@@ -115,6 +115,7 @@ JSONSchemaForm.defaultProps = {
   data: '',
   onSubmit: '',
   submitText: '提交',
+  submitSuccessText: '',
   showLoading: true,
   layout: 'vertical',
 };
@@ -128,21 +129,26 @@ JSONSchemaForm.schema = {
     title: '数据',
     type: 'text',
   },
-  onSubmit: {
-    title: '提交事件',
-    type: 'text',
-  },
-  submitText: {
-    title: '提交文字',
-    type: 'text',
-  },
-  showLoading: {
-    title: '提交时加载',
-    type: 'switch',
-  },
   layout: {
     title: '文本对齐',
     type: 'select',
     options: ['horizontal', 'vertical', 'inline'],
+  },
+  onSubmit: {
+    title: '提交事件',
+    type: 'text',
+  },
+
+  showLoading: {
+    title: '提交时加载',
+    type: 'switch',
+  },
+  submitText: {
+    title: '提交按钮文字',
+    type: 'text',
+  },
+  submitSuccessText: {
+    title: '提交成功文字',
+    type: 'text',
   },
 };

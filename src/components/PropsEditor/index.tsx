@@ -5,7 +5,7 @@ import isEqual from 'lodash/isEqual';
 import { renderEditorItem } from './renderEditorItem';
 import style from './index.module.scss';
 
-export const PropsEditor = ({ props: defaultProps, schema, onChange }) => {
+export const PropsEditor = ({ store, props: defaultProps, schema, onChange }) => {
   // const [, setV] = useState(-1);
   // const [opend, setOpend] = useState(false);
   const [props, setProps] = useState(defaultProps);
@@ -29,7 +29,9 @@ export const PropsEditor = ({ props: defaultProps, schema, onChange }) => {
       <ul>
         {Object.keys(schema).map((key) => {
           return (
-            <li key={key}>{renderEditorItem(key, props && props[key], schema[key], handle)}</li>
+            <li key={key}>
+              {renderEditorItem(key, props && props[key], schema[key], handle, store)}
+            </li>
           );
         })}
       </ul>

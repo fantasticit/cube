@@ -1,5 +1,9 @@
 import 'reflect-metadata';
+import React from 'react';
+import { Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { observable, action, transaction } from 'mobx';
+import merge from 'lodash/merge';
 import { plugins } from 'plugins';
 import { uuid } from 'utils/uuid';
 import { FetchStore } from './FetchStore';
@@ -7,7 +11,7 @@ import { FetchStore } from './FetchStore';
 export { FetchStore };
 
 export class Store {
-  @observable listeners = [];
+  @observable listeners = new Map();
   @observable components = [];
   @observable selectedComponentInfo = {
     props: {},
@@ -21,13 +25,23 @@ export class Store {
     queries.forEach(this.addQuery);
   }
 
-  @action subscribe = (subscriber) => {
-    this.listeners.push(subscriber);
+  @action on = (type, subscriber) => {
+    if (!this.listeners.has(type)) {
+      this.listeners.set(type, []);
+    }
+    this.listeners.get(type).push(subscriber);
   };
 
-  @action notify = () => {
-    this.listeners.forEach((listener) => {
-      listener();
+  @action off = (type, subscriber) => {
+    if (!this.listeners.has(type)) {
+      return;
+    }
+    this.listeners.get(type).splice(this.listeners.get(type).indexOf(subscriber), 1);
+  };
+
+  @action emit = (type, ...args) => {
+    (this.listeners.has(type) ? this.listeners.get(type) : []).forEach((listener) => {
+      listener(...args);
     });
   };
 
@@ -83,7 +97,7 @@ export class Store {
     if (!Component) {
       return;
     }
-    props = { ...Component.defaultProps, ...props };
+    props = this.mergeProps(Component.defaultProps, props);
     const schema = Component.schema;
     this.selectedComponentInfo = { props, schema, path };
   };
@@ -139,22 +153,34 @@ export class Store {
    * @param path
    */
   @action deleteComponent = (path) => {
-    const segments = String(path).split('.');
-    const target = segments.slice(0, -1).reduce((accu, path) => {
-      accu[path] = accu[path] || {};
-      return accu[path];
-    }, this.components);
+    const handle = () => {
+      const segments = String(path).split('.');
+      const target = segments.slice(0, -1).reduce((accu, path) => {
+        accu[path] = accu[path] || {};
+        return accu[path];
+      }, this.components);
 
-    const deleted = target.splice(segments.slice(-1)[0], 1);
+      const deleted = target.splice(segments.slice(-1)[0], 1);
 
-    if (this.selectedComponentInfo.path === path) {
-      this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
-    }
+      if (this.selectedComponentInfo.path === path) {
+        this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
+      }
 
-    // FIXME: 属性无法删除
-    transaction(() => {
-      this[deleted.name] = null;
-      delete this[deleted.name];
+      // FIXME: 属性无法删除
+      transaction(() => {
+        this[deleted.name] = null;
+        delete this[deleted.name];
+      });
+    };
+    Modal.confirm({
+      title: '确定删除?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '确定',
+      cancelText: '取消',
+      onOk: handle,
+      /* eslint-disable no-empty-function */
+      /* eslint-disable @typescript-eslint/no-empty-function */
+      onCancel() {},
     });
   };
 
@@ -208,7 +234,15 @@ export class Store {
     const segements = String(path).split('.');
     const root = this[segements[0]];
     const value = segements.reduce((accu, path) => {
-      return (accu && accu[path]) || undefined;
+      let r;
+      /* eslint-disable no-empty */
+      try {
+        r = accu[path];
+      } catch (e) {}
+      if (typeof r === 'boolean' || typeof r === 'number') {
+        return r;
+      }
+      return r || undefined;
     }, this);
 
     return typeof value === 'undefined'
@@ -218,11 +252,62 @@ export class Store {
       : value;
   };
 
+  @action match = (text) => {
+    if (!text) {
+      return [];
+    }
+
+    const matches = text.match(/{{(\S+)/);
+    if (!matches || !matches.length) {
+      return [];
+    }
+
+    /* eslint-disable no-param-reassign */
+    text = matches[0];
+    text = text
+      .replace(/\.(\S?)$/, '')
+      .replace(/^{{/, '')
+      .replace(/}}$/, '');
+
+    const getAllFullPath = (path, prefix = '', ret = []) => {
+      let f = prefix ? prefix + '.' + path : path;
+      const t = this.getValue(`{{${f}}}`);
+      if (typeof t === 'object') {
+        const subs = Object.keys(t);
+        subs.forEach((sub) => getAllFullPath(sub, f, ret));
+      } else {
+        ret.push(f);
+      }
+      return ret;
+    };
+
+    return getAllFullPath(text).map((key) => ({ label: key, value: `{{${key}}}` }));
+  };
+
   /**
    * 用于判断子节点是否为空
    * @param child
    */
   isEmptyChildNode(child) {
     return Array.isArray(child) ? child.length <= 0 : Boolean(child);
+  }
+
+  /**
+   * 用于合并 defaultProps 和 props
+   * @param props1
+   * @param props2
+   */
+  mergeProps(props1, props2) {
+    const style = Object.create(null);
+    merge(style, props1.style || {});
+    merge(style, props2.style || {});
+    return Object.assign(Object.create(null), props1, props2, { style });
+  }
+
+  toJSON() {
+    return {
+      components: this.components,
+      queries: this.queries,
+    };
   }
 }

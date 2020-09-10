@@ -16,7 +16,7 @@ const getTitleOrNameOfObj = (obj) => {
   return k ? obj[k] : '未能找到名称或标题';
 };
 
-export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) => {
+export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange, store }) => {
   const rootNewValue = clone(value);
   const { min = 1, max = Infinity, schema: subSchema } = schema;
 
@@ -68,7 +68,8 @@ export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) 
                     (subKey, newVal) => {
                       set(rootNewValue, `${key}.${subKey}`, newVal);
                       rootOnChange(rootNewValue);
-                    }
+                    },
+                    store
                   );
                 })}
               </Panel>
@@ -87,10 +88,16 @@ export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) 
               //   key={key}
               // ></Panel>
               <div className={style.pannellHeader} key={key}>
-                {renderEditorItem(key, value[key], subSchema[key], (key, newVal) => {
-                  set(rootNewValue, `${key}`, newVal);
-                  rootOnChange(rootNewValue);
-                })}
+                {renderEditorItem(
+                  key,
+                  value[key],
+                  subSchema[key],
+                  (key, newVal) => {
+                    set(rootNewValue, `${key}`, newVal);
+                    rootOnChange(rootNewValue);
+                  },
+                  store
+                )}
               </div>
             );
           })}
@@ -121,10 +128,16 @@ export const UnionEditor = ({ bindKey, value, schema, onChange: rootOnChange }) 
               }
             >
               {Object.keys(subSchema).map((key) => {
-                return renderEditorItem(key, v[key], subSchema[key], (key, newVal) => {
-                  set(rootNewValue, `${index}.${key}`, newVal);
-                  rootOnChange(rootNewValue);
-                });
+                return renderEditorItem(
+                  key,
+                  v[key],
+                  subSchema[key],
+                  (key, newVal) => {
+                    set(rootNewValue, `${index}.${key}`, newVal);
+                    rootOnChange(rootNewValue);
+                  },
+                  store
+                );
               })}
             </Panel>
           );

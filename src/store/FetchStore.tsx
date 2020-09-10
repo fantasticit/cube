@@ -33,13 +33,13 @@ export class FetchStore {
       });
   };
 
-  @action fetch = () => {
+  @action fetch = (params = {}) => {
     if (this.method !== 'get') {
       /* eslint-disable consistent-return */
       return;
     }
 
-    const config = { url: this.url, method: 'get' } as any;
+    const config = { url: this.url, method: 'get', params } as any;
     return this.xhr(config).then((res) => {
       this.data = res.data;
     });

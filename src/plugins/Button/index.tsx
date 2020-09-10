@@ -2,8 +2,8 @@ import React from 'react';
 import { Button as AButton } from 'antd';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const Button = ({ runtimeName, store, ...props }) => {
-  return <AButton {...props} />;
+export const Button = ({ runtimeName, store, onClick, ...props }) => {
+  return <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />;
 };
 
 Button.componentInfo = {

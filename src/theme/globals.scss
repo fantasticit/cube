@@ -119,3 +119,20 @@ body {
     letter-spacing: unset;
   }
 }
+
+.sketch-picker {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  box-shadow: none !important;
+
+  /* stylelint-disable */
+  @at-root .ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: inherit;
+  font-weight: 500;
+}

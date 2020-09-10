@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import { uuid } from 'utils/uuid';
-import { Drawer } from 'antd';
+import { Drawer, Tooltip } from 'antd';
 import { CodeOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Store } from '@/store';
@@ -15,7 +15,9 @@ const components = [
     id: uuid(),
     name: 'text1',
     component: 'Text',
-    props: {},
+    props: {
+      text: '# 文章列表',
+    },
   },
   {
     id: uuid(),
@@ -26,33 +28,24 @@ const components = [
       children: [
         {
           id: uuid(),
-          name: 'table1',
-          component: 'Table',
+          name: 'JSONSchemaForm1',
+          component: 'JSONSchemaForm',
           props: {
-            loading: '{{query1.isFetching}}',
-            data: '{{query1.data.data}}',
-            columns: [],
-          },
-        },
-        {
-          id: uuid(),
-          name: 'button1',
-          component: 'Button',
-          props: {
-            children: '刷新',
-            loading: '{{query1.isFetching}}',
-            onClick: '{{query1.fetch}}',
-          },
-        },
-
-        {
-          id: uuid(),
-          name: 'button2',
-          component: 'Button',
-          props: {
-            text: '{{table1.selectedRow.data.label}}',
-            children: '{{table1.selectedRow.data.label}}',
-            loading: '{{query1.isFetching}}',
+            schema: {
+              title: '',
+              description: '',
+              type: 'object',
+              properties: {
+                title: {
+                  title: '标题',
+                  type: 'string',
+                },
+              },
+            },
+            data: '',
+            onSubmit: '{{query1.fetch}}',
+            layout: 'inline',
+            submitText: '搜索',
           },
         },
       ],
@@ -64,61 +57,127 @@ const components = [
     component: 'Container',
     props: {
       span: 24,
-      offset: 0,
+      style: {
+        padding: {
+          paddingTop: 8,
+        },
+      },
       children: [
         {
           id: uuid(),
-          name: 'table2',
+          name: 'table1',
           component: 'Table',
           props: {
-            loading: '{{query2.isFetching}}',
-            data: '{{query2.data.data}}',
-            columns: [],
-          },
-        },
-        {
-          id: uuid(),
-          name: 'button3',
-          component: 'Button',
-          props: {
-            children: '刷新',
-            loading: '{{query2.isFetching}}',
-            onClick: '{{query2.fetch}}',
+            loading: '{{query1.isFetching}}',
+            data: '{{query1.data.data.0}}',
+            columns: ['id', 'title', 'cover', 'status'],
           },
         },
       ],
     },
   },
-  {
-    id: uuid(),
-    name: 'JSONSchemaForm1',
-    component: 'JSONSchemaForm',
-    props: {
-      schema: {
-        title: '分类',
-        description: '请在表格 2 中选中一行数据.',
-        type: 'object',
-        required: ['label', 'value'],
-        properties: {
-          id: {
-            title: 'ID',
-            type: 'string',
-            hidden: false,
-          },
-          label: {
-            title: 'Label',
-            type: 'string',
-          },
-          value: {
-            title: 'Value',
-            type: 'string',
-          },
-        },
-      },
-      data: '{{table2.selectedRow.data}}',
-      onSubmit: '{{query3.post}}',
-    },
-  },
+  // {
+  //   id: uuid(),
+  //   name: 'container1',
+  //   component: 'Container',
+  //   props: {
+  //     span: 24,
+  //     children: [
+  //       {
+  //         id: uuid(),
+  //         name: 'table1',
+  //         component: 'Table',
+  //         props: {
+  //           loading: '{{query1.isFetching}}',
+  //           data: '{{query1.data.data}}',
+  //           columns: [],
+  //         },
+  //       },
+  //       {
+  //         id: uuid(),
+  //         name: 'button1',
+  //         component: 'Button',
+  //         props: {
+  //           children: '刷新',
+  //           loading: '{{query1.isFetching}}',
+  //           onClick: '{{query1.fetch}}',
+  //         },
+  //       },
+
+  //       {
+  //         id: uuid(),
+  //         name: 'button2',
+  //         component: 'Button',
+  //         props: {
+  //           text: '{{table1.selectedRow.data.label}}',
+  //           children: '{{table1.selectedRow.data.label}}',
+  //           loading: '{{query1.isFetching}}',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
+  // {
+  //   id: uuid(),
+  //   name: 'container2',
+  //   component: 'Container',
+  //   props: {
+  //     span: 24,
+  //     offset: 0,
+  //     children: [
+  //       {
+  //         id: uuid(),
+  //         name: 'table2',
+  //         component: 'Table',
+  //         props: {
+  //           loading: '{{query2.isFetching}}',
+  //           data: '{{query2.data.data}}',
+  //           columns: [],
+  //         },
+  //       },
+  //       {
+  //         id: uuid(),
+  //         name: 'button3',
+  //         component: 'Button',
+  //         props: {
+  //           children: '刷新',
+  //           loading: '{{query2.isFetching}}',
+  //           onClick: '{{query2.fetch}}',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // },
+  // {
+  //   id: uuid(),
+  //   name: 'JSONSchemaForm1',
+  //   component: 'JSONSchemaForm',
+  //   props: {
+  //     schema: {
+  //       title: '分类',
+  //       description: '请在表格 2 中选中一行数据.',
+  //       type: 'object',
+  //       required: ['label', 'value'],
+  //       properties: {
+  //         id: {
+  //           title: 'ID',
+  //           type: 'string',
+  //           hidden: false,
+  //         },
+  //         label: {
+  //           title: 'Label',
+  //           type: 'string',
+  //         },
+  //         value: {
+  //           title: 'Value',
+  //           type: 'string',
+  //         },
+  //       },
+  //     },
+  //     data: '{{table2.selectedRow.data}}',
+  //     onSubmit: '{{query3.post}}',
+  //   },
+  // },
 ];
 
 const Header = observer(({ store }) => {
@@ -132,10 +191,14 @@ const Header = observer(({ store }) => {
         <nav>
           <ul>
             <li>
-              <CodeOutlined onClick={() => setCodeVisible(true)} />
+              <Tooltip title="代码">
+                <CodeOutlined onClick={() => setCodeVisible(true)} />
+              </Tooltip>
             </li>
             <li>
-              <PlayCircleOutlined onClick={() => setPreviewVisible(true)} />
+              <Tooltip title="预览">
+                <PlayCircleOutlined onClick={() => setPreviewVisible(true)} />
+              </Tooltip>
             </li>
           </ul>
         </nav>
@@ -193,7 +256,7 @@ export const Editor = () => {
     queries: [
       {
         name: 'query1',
-        url: 'https://api.blog.wipi.tech/api/tag',
+        url: 'https://api.blog.wipi.tech/api/article',
         method: 'get',
       },
       {

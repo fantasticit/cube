@@ -17,16 +17,16 @@ export const fontCssSchema = {
   },
   textAlign: {
     title: '对齐方式',
-    type: 'radio',
+    type: 'select',
     options: ['left', 'center', 'right'],
   },
 };
 
 export const paddingCss: React.CSSProperties = {
-  paddingTop: 8,
-  paddingRight: 8,
-  paddingBottom: 8,
-  paddingLeft: 8,
+  paddingTop: 0,
+  paddingRight: 0,
+  paddingBottom: 0,
+  paddingLeft: 0,
 };
 export const paddingCssSchema = {
   title: '内边距',
@@ -88,10 +88,11 @@ const COMMON_PROPS = {
   style: {
     width: '100%',
     height: 'auto',
-    bordered: true,
-    boxShadow: true,
+    bordered: false,
+    boxShadow: false,
     margin: marginCss,
     padding: paddingCss,
+    font: fontCss,
   },
 };
 
@@ -118,6 +119,7 @@ const COMMON_SCHEMA = {
       },
       margin: marginCssSchema,
       padding: paddingCssSchema,
+      font: fontCssSchema,
     },
   },
 };
@@ -131,7 +133,7 @@ export const getSchema = (schema) => {
 };
 
 export const transformStyle = (style) => {
-  const ret = {} as any;
+  const ret = {} as React.CSSProperties;
 
   ret.width = style.width;
   ret.height = style.height;

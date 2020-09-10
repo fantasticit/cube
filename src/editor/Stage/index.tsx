@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { Row } from 'antd';
 import cls from 'classnames';
-import cloneDeep from 'lodash/cloneDeep';
 import { observer, Observer } from 'mobx-react';
 import { plugins } from '@/plugins';
 import { Store } from '@/store';
@@ -18,8 +17,13 @@ const renderComponent = (component, idx, store, path = '', preview) => {
   }
 
   const Component = plugins.get(componentName.toLowerCase());
+
+  if (!Component) {
+    return null;
+  }
+
   const defaultProps = Component.defaultProps;
-  const runtimeProps = cloneDeep({ ...defaultProps, ...props });
+  const runtimeProps = store.mergeProps(defaultProps, props);
 
   Object.keys(runtimeProps).forEach((key) => {
     if (typeof runtimeProps[key] === 'string') {

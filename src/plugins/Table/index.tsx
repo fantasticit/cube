@@ -12,7 +12,15 @@ export const Table = ({
   columns: defaultColumns,
 }) => {
   const columns = defaultColumns.length
-    ? defaultColumns
+    ? defaultColumns.map((key) => {
+        return typeof key === 'object'
+          ? key
+          : {
+              title: key,
+              dataIndex: key,
+              key: key,
+            };
+      })
     : data &&
       data[0] &&
       Object.keys(data[0])
@@ -61,6 +69,10 @@ Table.schema = {
   data: {
     title: '数据',
     type: 'text',
+  },
+  columns: {
+    title: '列配置',
+    type: 'json',
   },
   loading: {
     title: '加载中',

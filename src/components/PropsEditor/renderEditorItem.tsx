@@ -10,7 +10,7 @@ import { JSONEditor } from './components/JSONEditor';
 import { TextareaEditor } from './components/TextareaEditor';
 import { UnionEditor } from './UnionEditor';
 
-export const renderEditorItem = (key, propsValue, schema, onChange) => {
+export const renderEditorItem = (key, propsValue, schema, onChange, store) => {
   if (!schema) {
     return null;
   }
@@ -67,6 +67,7 @@ export const renderEditorItem = (key, propsValue, schema, onChange) => {
       schema={schema}
       value={propsValue}
       onChange={(v) => onChange(key, v)}
+      store={store}
       {...{ bindKey: key }}
     />
   );

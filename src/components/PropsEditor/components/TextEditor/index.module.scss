@@ -1,6 +1,10 @@
 .wrapper {
   font-size: var(--editor-text-font-size-helper);
 
+  > div > div {
+    width: 100% !important;
+  }
+
   > p {
     padding: var(--editor-padding-vertical-medium) 0;
     margin: 0;
@@ -14,6 +18,14 @@
     .desc {
       color: var(--editor-text-color-second);
     }
+  }
+
+  .resultWrapper {
+    width: 300px !important;
+    height: 300px;
+    border: 1px solid #dddddd;
+    margin-top: 2px;
+    overflow: auto;
   }
 
   .imgWrapper {
