@@ -28,7 +28,7 @@ export const JSONEditor = ({ schema, value: propsValue, onChange }) => {
   }, [value, onChange]);
 
   return (
-    <div className={style.wrapper}>
+    <div className={'prop-item-editor-wrapper'}>
       <p>
         {schema.title || '文本'}
         <span className={style.desc}>{schema.desc}</span>
@@ -44,18 +44,9 @@ export const JSONEditor = ({ schema, value: propsValue, onChange }) => {
           onBeforeChange={(_, __, code) => {
             setValue(code);
           }}
-          // onChange={(_, __, code) => {
-          //   let value = null;
-          //   /* eslint-disable no-empty */
-          //   try {
-          //     value = JSON.parse(code);
-          //   } catch (e) {}
-          //   value && onChange(value);
-          //   value && (lastValue = value);
-          // }}
         />
-        <footer>
-          <Button size="small" onClick={onClick}>
+        <footer style={{ color: 'inherit' }}>
+          <Button size="small" onClick={onClick} style={{ margin: '10px 0', color: 'inherit' }}>
             确认
           </Button>
         </footer>

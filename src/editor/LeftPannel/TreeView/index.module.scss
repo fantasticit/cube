@@ -1,3 +1,18 @@
 .wrapper {
   padding: 1em;
 }
+
+.leafWrapper {
+  display: flex;
+  justify-content: space-between;
+
+  > span:last-of-type {
+    display: none;
+  }
+
+  &:hover {
+    > span:last-of-type {
+      display: inline;
+    }
+  }
+}

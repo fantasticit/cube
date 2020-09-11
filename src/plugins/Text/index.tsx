@@ -1,9 +1,9 @@
 import React from 'react';
 import { markdown } from 'utils/markdown';
 
-export const Text = ({ path, activePath, indicator, rootClassNames, style, text }) => {
+export const Text = ({ indicator, text, editorProps, style }) => {
   return (
-    <span className={rootClassNames} data-path={path} data-active-path={activePath} style={style}>
+    <span {...editorProps} style={style}>
       {indicator}
       <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
     </span>

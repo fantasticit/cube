@@ -4,11 +4,8 @@ import { Input } from 'antd';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const TextInput = ({
   store,
-  path,
-  activePath,
-  isActivePath,
   indicator,
-  rootClassNames,
+  editorProps,
   style,
   type,
   hidden,
@@ -39,14 +36,9 @@ export const TextInput = ({
   );
 
   return (
-    <span className={rootClassNames} data-path={path} data-active-path={activePath} style={style}>
+    <span {...editorProps} style={style}>
       {indicator}
-      <Component
-        style={{ display: 'inline-block' }}
-        width={style.width}
-        {...props}
-        onPressEnter={onSubmit}
-      />
+      <Component style={{ display: 'inline-block' }} {...props} onPressEnter={onSubmit} />
     </span>
   );
 };

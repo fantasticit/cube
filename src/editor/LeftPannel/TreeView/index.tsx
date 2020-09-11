@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Tree } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import cloneDeep from 'lodash/cloneDeep';
 import { observer } from 'mobx-react';
 import { Store } from '@/store';
@@ -10,15 +10,34 @@ interface IProps {
   store: Store;
 }
 
-const transformData2Leaf = (data) => {
+const transformData2Leaf = (data, idx, path = '', store) => {
+  /* eslint-disable no-param-reassign */
+  path = String(path || idx);
+
+  const title = (
+    <div className={styles.leafWrapper}>
+      <span>{data.name}</span>
+      <span
+        onClick={(evt) => {
+          evt.stopPropagation();
+          store.componentStore.deleteComponent(path);
+        }}
+      >
+        <CloseCircleOutlined />
+      </span>
+    </div>
+  );
+
   return data.props.children && Array.isArray(data.props.children)
     ? {
         ...data,
-        title: data.name,
-        key: data.id,
-        children: data.props.children.map(transformData2Leaf),
+        title,
+        key: path,
+        children: data.props.children.map((data, idx) =>
+          transformData2Leaf(data, idx, `${path}.props.children.${idx}`, store)
+        ),
       }
-    : { ...data, title: data.name, key: data.id };
+    : { ...data, title, key: path };
 };
 
 const transformLeaf2Data = (leaf) => {
@@ -40,7 +59,10 @@ const transformLeaf2Data = (leaf) => {
 
 export const TreeView: React.FC<IProps> = observer(({ store }) => {
   const components = store.components;
-  const treeData = components.filter(Boolean).map(transformData2Leaf);
+  const active = store.componentStore.selectedComponentInfo.path;
+  const treeData = components
+    .filter(Boolean)
+    .map((data, idx) => transformData2Leaf(data, idx, '', store));
 
   const onSelect = useCallback(
     (_, { node }) => {
@@ -129,6 +151,7 @@ export const TreeView: React.FC<IProps> = observer(({ store }) => {
         onDrop={onDrop}
         onSelect={onSelect}
         treeData={treeData}
+        selectedKeys={[active]}
       />
     </div>
   );

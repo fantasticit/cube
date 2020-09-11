@@ -1,8 +1,14 @@
 import React, { useState, useMemo } from 'react';
-import { Tooltip } from 'antd';
-import { PartitionOutlined, AppstoreOutlined, ShareAltOutlined } from '@ant-design/icons';
-import { Store } from '@/store';
 import cls from 'classnames';
+import { Tooltip } from 'antd';
+import {
+  ApartmentOutlined,
+  AppstoreOutlined,
+  ShareAltOutlined,
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+} from '@ant-design/icons';
+import { Store } from '@/store';
 import { Components } from './Components';
 import { Apis } from './Apis';
 import { TreeView } from './TreeView';
@@ -14,7 +20,7 @@ interface IProps {
 
 const menus = [
   {
-    label: <PartitionOutlined />,
+    label: <ApartmentOutlined />,
     tooltip: '组件树',
     value: 0,
   },
@@ -32,6 +38,7 @@ const menus = [
 
 export const LeftPannel: React.FC<IProps> = ({ store }) => {
   const [active, setActive] = useState(menus[0].value);
+  const [collapsed, setCollapsed] = useState(false);
 
   const activePannel = useMemo(() => {
     switch (active) {
@@ -45,14 +52,17 @@ export const LeftPannel: React.FC<IProps> = ({ store }) => {
   }, [active, store]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={cls({ [styles.wrapper]: true, [styles.collapsed]: collapsed })}>
       <aside>
         <ul>
           {menus.map((menu) => {
             return (
               <Tooltip key={menu.value} title={menu.tooltip} placement="right">
                 <li
-                  onClick={() => setActive(menu.value)}
+                  onClick={() => {
+                    setCollapsed(false);
+                    setActive(menu.value);
+                  }}
                   className={cls({ [styles.active]: active === menu.value })}
                 >
                   {menu.label}
@@ -61,6 +71,11 @@ export const LeftPannel: React.FC<IProps> = ({ store }) => {
             );
           })}
         </ul>
+        <Tooltip title={collapsed ? '展开' : '收起'} placement="right">
+          <div onClick={() => setCollapsed(!collapsed)}>
+            {!collapsed ? <DoubleLeftOutlined /> : <DoubleRightOutlined />}
+          </div>
+        </Tooltip>
       </aside>
       <main>
         <header>{menus[active].tooltip}</header>

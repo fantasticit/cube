@@ -3,11 +3,9 @@ import { Table as ATable } from 'antd';
 
 export const Table = ({
   store,
-  path,
-  activePath,
   indicator,
   runtimeName,
-  rootClassNames,
+  editorProps,
   style,
   rowKey,
   data,
@@ -48,7 +46,7 @@ export const Table = ({
   }, [store, runtimeName]);
 
   return (
-    <div style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
+    <div {...editorProps} style={style}>
       {indicator}
       <ATable
         loading={loading}

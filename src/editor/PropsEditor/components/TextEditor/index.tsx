@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Input } from 'antd';
 import { StoreValueView } from '../../StoreValueView';
-import style from './index.module.scss';
 
 export const TextEditor = ({ schema, value, onChange, store }) => {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className={style.wrapper}>
+    <div className={'prop-item-editor-wrapper'}>
       <p>
         {schema.title || '文本'}
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </p>
       <div>
         <StoreValueView store={store} visible={focused} value={value} onChange={onChange}>

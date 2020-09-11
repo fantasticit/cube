@@ -4,9 +4,8 @@ import { Col } from 'antd';
 export const Container = ({
   store,
   path,
-  activePath,
   indicator,
-  rootClassNames,
+  editorProps,
   style,
   span = 12,
   offset = 0,
@@ -30,12 +29,10 @@ export const Container = ({
     <Col
       onDrop={onDrop}
       onDragOver={onDragOver}
-      style={style}
       span={span}
       offset={offset}
-      className={rootClassNames}
-      data-path={path}
-      data-active-path={activePath}
+      style={style}
+      {...editorProps}
     >
       {indicator}
       {store.isEmptyChildNode(children) ? (
@@ -66,8 +63,6 @@ Container.componentInfo = {
 Container.defaultProps = {
   span: 12,
   offset: 0,
-  bordered: true,
-  boxShadow: true,
 };
 
 Container.schema = {
@@ -78,13 +73,5 @@ Container.schema = {
   offset: {
     title: 'offset',
     type: 'number',
-  },
-  bordered: {
-    title: '边框',
-    type: 'switch',
-  },
-  boxShadow: {
-    title: '阴影',
-    type: 'switch',
   },
 };

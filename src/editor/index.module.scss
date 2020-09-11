@@ -7,18 +7,22 @@
   overflow: hidden;
 
   > header {
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     height: 52px;
-    padding: 0 12px;
     border-bottom: 1px solid #dddddd;
-    background: #eaedf0;
+    background: #ffffff;
+    box-shadow: rgba(141, 158, 167, .13) 0 4px 10px 0;
+    z-index: 100;
 
     .logo {
-      font-weight: 600;
-      font-size: 16px;
+      width: 99.84px;
+      height: 100%;
+      background-image: url('../assets/cube-light.png');
+      background-size: contain;
     }
 
     nav {
@@ -51,19 +55,22 @@
     }
 
     > section:first-of-type {
-      width: 300px;
+      // width: 300px;
     }
 
     > section:nth-of-type(2) {
       flex: 1;
       height: 100%;
-      overflow: hidden;
-      border-right: 1px solid #dddddd;
+      padding: 10px 10px 40px;
+      background: #f5f5f5;
+      overflow: auto;
+      // border-right: 1px solid #dddddd;
     }
 
     > section:last-of-type {
       width: 300px;
-      padding: 10px 0;
+      // padding: 10px 0;
+      box-shadow: rgba(39, 54, 78, .11) 0 -2px 10px 0;
     }
   }
 }

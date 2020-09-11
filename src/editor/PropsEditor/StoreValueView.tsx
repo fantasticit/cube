@@ -8,7 +8,6 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       return '';
     }
 
-    // const path = String(value).replace(/\.$/, '').replace(/^{{/, '').replace(/}}$/, '');
     let json = store.runtimeStore.getValue(value);
 
     if (typeof json === 'boolean') {

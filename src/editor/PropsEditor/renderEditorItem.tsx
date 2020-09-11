@@ -6,6 +6,7 @@ import { RadioEditor } from './components/RadioEditor';
 import { SelectEditor } from './components/SelectEditor';
 import { SwitchEditor } from './components/SwitchEditor';
 import { TextEditor } from './components/TextEditor';
+import { TextAddonEditor } from './components/TextAddonEditor';
 import { JSONEditor } from './components/JSONEditor';
 import { TextareaEditor } from './components/TextareaEditor';
 import { UnionEditor } from './UnionEditor';
@@ -47,6 +48,10 @@ export const renderEditorItem = (key, propsValue, schema, onChange, store) => {
       TargetEditor = TextEditor;
       break;
 
+    case 'textaddon':
+      TargetEditor = TextAddonEditor;
+      break;
+
     case 'textarea':
       TargetEditor = TextareaEditor;
       break;
@@ -57,7 +62,7 @@ export const renderEditorItem = (key, propsValue, schema, onChange, store) => {
 
     case 'children':
     default:
-      TargetEditor = UnionEditor as any;
+      TargetEditor = UnionEditor;
       break;
   }
 

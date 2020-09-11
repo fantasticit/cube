@@ -8,11 +8,11 @@ export const ColorEditor = ({ schema, value, onChange }) => {
   const [visible, setVisible] = useState(false);
 
   return (
-    <div className={style.wrapper}>
-      <span>
+    <div className={`${style.wrapper} prop-item-editor-wrapper`}>
+      <p>
         {schema.title || '颜色'}
         <span className={style.desc}>{schema.desc}</span>
-      </span>
+      </p>
       <div>
         <Popover
           placement={'leftTop'}
@@ -22,7 +22,7 @@ export const ColorEditor = ({ schema, value, onChange }) => {
                 e.stopPropagation();
                 e.preventDefault();
               }}
-              style={{ width: 300, textAlign: 'right' }}
+              style={{ width: 300, textAlign: 'right', color: 'inherit' }}
             >
               <SketchPicker
                 color={value}
@@ -32,7 +32,7 @@ export const ColorEditor = ({ schema, value, onChange }) => {
               />
               <Button
                 size="small"
-                style={{ margin: '0 10px 10px' }}
+                style={{ margin: '0 10px 10px', color: 'inherit' }}
                 onClick={() => setVisible(false)}
               >
                 关闭

@@ -2,14 +2,13 @@ import React, { useCallback } from 'react';
 import { Tooltip } from 'antd';
 import { Store } from '@/store';
 import { plugins } from '@/plugins';
+import { ButtonIcon } from '@/editor/icons/Button';
+import { ContainerIcon } from '@/editor/icons/Container';
+import { TableIcon } from '@/editor/icons/Table';
+import { TextIcon } from '@/editor/icons/Text';
+import { TextInputIcon } from '@/editor/icons/TextInput';
+import { JSONSchemaFormIcon } from '@/editor/icons/JSONSchemaForm';
 import styles from './index.module.scss';
-
-import { ButtonIcon } from '@/icons/Button';
-import { ContainerIcon } from '@/icons/Container';
-import { TableIcon } from '@/icons/Table';
-import { TextIcon } from '@/icons/Text';
-import { TextInputIcon } from '@/icons/TextInput';
-import { JSONSchemaFormIcon } from '@/icons/JSONSchemaForm';
 
 interface IProps {
   store: Store;
@@ -62,8 +61,11 @@ export const Components: React.FC<IProps> = () => {
                 onDragStart={onDragStart}
                 data-id={component.componentInfo.name}
               >
-                <span style={{ marginLeft: 4 }}>{getIcon(component.componentInfo.icon)}</span>
-                <span>{component.componentInfo.name}</span>
+                <div>{getIcon(component.componentInfo.icon)}</div>
+                <div>
+                  <p>{component.componentInfo.name}</p>
+                  <p className="ellipsis">{component.componentInfo.description}</p>
+                </div>
               </li>
             </Tooltip>
           );

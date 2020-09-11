@@ -2,10 +2,8 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
 
 export const JSONSchemaForm = ({
-  path,
-  activePath,
   indicator,
-  rootClassNames,
+  editorProps,
   style,
   schema,
   data,
@@ -65,7 +63,7 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
+    <div {...editorProps} style={style}>
       {indicator}
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}

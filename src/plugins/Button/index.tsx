@@ -5,17 +5,16 @@ import { Button as AButton } from 'antd';
 export const Button = ({
   store,
   path,
-  activePath,
-  isActivePath,
   indicator,
   runtimeName,
-  rootClassNames,
+  editorProps,
+  // 以下为自身所需
   style,
   onClick,
   ...props
 }) => {
   return (
-    <span style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
+    <span {...editorProps} style={style}>
       {indicator}
       <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />
     </span>

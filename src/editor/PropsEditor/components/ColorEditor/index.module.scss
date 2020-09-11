@@ -1,0 +1,21 @@
+.wrapper {
+  > div > div {
+    display: flex;
+    align-items: center;
+    min-width: 90px;
+    height: 32px;
+    padding: 4px 11px;
+    border: 1px solid var(--editor-border-color);
+    border-radius: 2px;
+    color: var(--editor-text-color-second);
+    background-color: #ffffff;
+
+    .block {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+  }
+}

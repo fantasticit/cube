@@ -9,13 +9,13 @@ export const SelectEditor = ({ schema, value, onChange }) => {
   });
 
   return (
-    <div className={style.wrapper}>
-      <span>
+    <div className={'prop-item-editor-wrapper'}>
+      <p>
         {schema.title || '单选'}
         <span className={style.desc}>{schema.desc}</span>
-      </span>
+      </p>
       <div>
-        <Select onChange={onChange} value={value} style={{ minWidth: 120 }}>
+        <Select onChange={onChange} value={value} style={{ width: '100%' }}>
           {options.map((option) => (
             <Select.Option key={option.value} value={option.value}>
               {option.label}

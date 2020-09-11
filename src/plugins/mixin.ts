@@ -88,11 +88,11 @@ const COMMON_PROPS = {
   style: {
     width: '100%',
     height: 'auto',
-    bordered: false,
-    boxShadow: false,
-    margin: marginCss,
-    padding: paddingCss,
-    font: fontCss,
+    // bordered: false,
+    // boxShadow: false,
+    // margin: marginCss,
+    // padding: paddingCss,
+    // font: fontCss,
   },
   hidden: '',
 };
@@ -122,9 +122,9 @@ const COMMON_SCHEMA = {
         title: '阴影',
         type: 'switch',
       },
-      margin: marginCssSchema,
-      padding: paddingCssSchema,
-      font: fontCssSchema,
+      // margin: marginCssSchema,
+      // padding: paddingCssSchema,
+      // font: fontCssSchema,
     },
   },
 };
@@ -138,40 +138,45 @@ export const getSchema = (schema) => {
 };
 
 export const transformStyle = (style) => {
-  const ret = {} as React.CSSProperties;
+  return { ...style };
+  // const ret = style as React.CSSProperties;
 
-  ret.width = style.width;
-  ret.height = style.height;
+  // ret.width = style.width;
+  // ret.height = style.height;
 
-  if (style.font) {
-    Object.assign(ret, style.font);
-  }
+  // if (style.font) {
+  //   delete ret.font;
+  //   Object.assign(ret, style.font);
+  // }
 
-  if (style.boxShadow) {
-    ret.boxShadow = '0 0 16px rgba(0,0,0,.03)';
-  }
+  // if (style.boxShadow) {
+  //   ret.boxShadow = '0 0 16px rgba(0,0,0,.03)';
+  // }
 
-  if (style.bordered) {
-    ret.border = '1px solid #ddd';
-  }
+  // if (style.bordered) {
+  //   ret.border = '1px solid #ddd';
+  // }
 
-  if (style.padding) {
-    ret.padding = ``;
-    void ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'].forEach((key) => {
-      ret.padding += ' ' + style.padding[key] + 'px';
-    });
-  }
+  // if (style.padding) {
+  //   ret.padding = ``;
+  //   void ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'].forEach((key) => {
+  //     ret.padding += ' ' + style.padding[key] + 'px';
+  //   });
+  // }
 
-  if (style.margin) {
-    ret.margin = ``;
-    void ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'].forEach((key) => {
-      ret.margin += ' ' + style.margin[key] + 'px';
-    });
-  }
+  // if (style.margin) {
+  //   ret.margin = ``;
+  //   void ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'].forEach((key) => {
+  //     ret.margin += ' ' + style.margin[key] + 'px';
+  //   });
+  // }
 
-  return ret;
+  // return ret;
 };
 
 export const isHidden = (hidden) => {
-  return !/{{(\S+)}}/.test(hidden) && Boolean(hidden);
+  return (
+    !/{{(\S+)}}/.test(hidden) &&
+    (hidden === 'true' ? true : hidden === 'false' ? false : Boolean(hidden))
+  );
 };

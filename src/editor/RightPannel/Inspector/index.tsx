@@ -1,8 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { PropsEditor } from '@/components/PropsEditor';
+import { PropsEditor } from '@/editor/PropsEditor';
 import { Store } from '@/store';
-import styles from './index.module.scss';
 
 interface IProps {
   store: Store;
@@ -12,20 +11,15 @@ export const Inspector: React.FC<IProps> = observer(({ store }) => {
   const { props, schema, path } = store.componentStore.selectedComponentInfo;
 
   return (
-    <>
-      {path ? (
-        <PropsEditor
-          store={store}
-          props={props}
-          schema={schema}
-          onChange={(newProps) => {
-            store.componentStore.updateComponentProps(path, newProps);
-            store.componentStore.selectComponent(path);
-          }}
-        />
-      ) : (
-        <div className={styles.empty}>请先选中组件</div>
-      )}
-    </>
+    <PropsEditor
+      active={path}
+      store={store}
+      props={props}
+      schema={schema}
+      onChange={(newProps) => {
+        store.componentStore.updateComponentProps(path, newProps);
+        store.componentStore.selectComponent(path);
+      }}
+    />
   );
 });

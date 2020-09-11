@@ -7,7 +7,7 @@
 
   li {
     display: flex;
-    padding: 8px 8px;
+    padding: 8px 12px;
     border: 1px dashed #dddddd;
     color: #333333;
     overflow: hidden;
@@ -17,18 +17,34 @@
     text-align: center;
     cursor: move;
 
-    > span {
+    > div {
       display: flex;
       align-items: center;
-      color: #444444;
+      color: var(--editor-primary-color);
 
-      + span {
+      + div {
         margin-left: 8px;
       }
 
       &:last-of-type {
-        color: #333333;
-        font-weight: 600;
+        flex-direction: column;
+        align-items: flex-start;
+        width: calc(100% - 40px);
+
+        p {
+          width: 100%;
+          margin: 0;
+          text-align: left;
+
+          &:first-of-type {
+            color: #333333;
+            font-weight: 600;
+          }
+
+          &:last-of-type {
+            color: #666666;
+          }
+        }
       }
     }
 
