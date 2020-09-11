@@ -92,7 +92,7 @@ const components = [
               },
             },
             data: '',
-            onSubmit: '{{query1.fetch}}',
+            onSubmit: '{{api1.fetch}}',
             layout: 'inline',
             submitText: '搜索',
           },
@@ -148,8 +148,8 @@ const components = [
               },
             },
             children: '刷新',
-            loading: '{{query1.isFetching}}',
-            onClick: '{{query1.fetch}}',
+            loading: '{{api1.isFetching}}',
+            onClick: '{{api1.fetch}}',
           },
         },
         {
@@ -197,8 +197,8 @@ const components = [
           name: 'table1',
           component: 'Table',
           props: {
-            loading: '{{query1.isFetching}}',
-            data: '{{query1.data.data.0}}',
+            loading: '{{api1.isFetching}}',
+            data: '{{api1.data.data.0}}',
             columns: ['id', 'title', 'cover', 'status'],
           },
         },
@@ -304,12 +304,12 @@ const Header = observer(({ store }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
 
   const preview = () => {
-    store.setReadonly(true);
+    store.readonly = true;
     setPreviewVisible(true);
   };
 
   const exitPreview = () => {
-    store.setReadonly(false);
+    store.readonly = false;
     setPreviewVisible(false);
   };
 
@@ -383,19 +383,19 @@ const Main = observer(({ store }) => {
 export const Editor = () => {
   const store = new Store({
     components,
-    queries: [
+    apis: [
       {
-        name: 'query1',
+        name: 'api1',
         url: 'https://api.blog.wipi.tech/api/article',
         method: 'get',
       },
       {
-        name: 'query2',
+        name: 'api2',
         url: 'https://api.blog.wipi.tech/api/category',
         method: 'get',
       },
       {
-        name: 'query3',
+        name: 'api3',
         url: 'https://api.blog.wipi.tech/api/category',
         method: 'post',
       },

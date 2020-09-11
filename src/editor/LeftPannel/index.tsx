@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { Tooltip } from 'antd';
-import { PartitionOutlined, AppstoreOutlined, DatabaseOutlined } from '@ant-design/icons';
+import { PartitionOutlined, AppstoreOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { Store } from '@/store';
 import cls from 'classnames';
 import { Components } from './Components';
-import { Query } from './Query';
+import { Apis } from './Apis';
 import { TreeView } from './TreeView';
 import styles from './index.module.scss';
 
@@ -24,8 +24,8 @@ const menus = [
     value: 1,
   },
   {
-    label: <DatabaseOutlined />,
-    tooltip: '数据源',
+    label: <ShareAltOutlined />,
+    tooltip: '接口服务',
     value: 2,
   },
 ];
@@ -40,7 +40,7 @@ export const LeftPannel: React.FC<IProps> = ({ store }) => {
       case menus[1].value:
         return <Components store={store} />;
       default:
-        return <Query store={store} />;
+        return <Apis store={store} />;
     }
   }, [active, store]);
 

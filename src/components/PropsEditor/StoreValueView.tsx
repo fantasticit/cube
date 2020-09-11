@@ -9,7 +9,7 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
     }
 
     // const path = String(value).replace(/\.$/, '').replace(/^{{/, '').replace(/}}$/, '');
-    let json = store.getValue(value);
+    let json = store.runtimeStore.getValue(value);
 
     if (typeof json === 'boolean') {
       json = String(json);
@@ -43,8 +43,8 @@ export const StoreValueView = ({ store, visible, value, onChange, children }) =>
       <AutoComplete
         value={value}
         style={{ width: '100%' }}
-        backfill={true}
-        options={store.match(value)}
+        backfill={false}
+        options={store.runtimeStore.match(value)}
         onChange={(value) => {
           onChange(value);
         }}

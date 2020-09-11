@@ -77,8 +77,6 @@ body {
 
 .component-indicator-wrapper {
   position: relative;
-  // FIXME: 这里会导致编辑和预览 UI 不一致，待修复
-  display: inline-block;
   border-width: 1px;
   border-style: dashed;
   border-color: transparent;
@@ -103,11 +101,11 @@ body {
 
 .CodeMirror {
   width: 100% !important;
-  height: auto;
   padding: 0;
   border-radius: 4px;
   color: #3d3d3d;
   box-shadow: inset 0 0 0 1px #dedede;
+  overflow: auto;
   font-size: 11px;
   line-height: 16px;
   letter-spacing: unset;
@@ -129,8 +127,9 @@ body {
 
 .store-value-view-wrapper {
   .CodeMirror {
-    width: 50vw !important;
-    height: 300px;
+    min-width: 320px !important;
+    max-width: 40vw !important;
+    max-height: 300px;
     border: 0 !important;
   }
 }

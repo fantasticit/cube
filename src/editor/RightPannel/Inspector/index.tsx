@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const Inspector: React.FC<IProps> = observer(({ store }) => {
-  const { props, schema, path } = store.selectedComponentInfo;
+  const { props, schema, path } = store.componentStore.selectedComponentInfo;
 
   return (
     <>
@@ -19,8 +19,8 @@ export const Inspector: React.FC<IProps> = observer(({ store }) => {
           props={props}
           schema={schema}
           onChange={(newProps) => {
-            store.updateComponentProps(path, newProps);
-            store.selectComponent(path);
+            store.componentStore.updateComponentProps(path, newProps);
+            store.componentStore.selectComponent(path);
           }}
         />
       ) : (

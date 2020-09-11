@@ -55,7 +55,7 @@ export const TreeView: React.FC<IProps> = observer(({ store }) => {
           a += c;
           return a;
         }, '');
-      store.selectComponent(path);
+      store.componentStore.selectComponent(path);
     },
     [store]
   );
@@ -113,7 +113,7 @@ export const TreeView: React.FC<IProps> = observer(({ store }) => {
         }
       }
 
-      store.components = data.filter(Boolean).map(transformLeaf2Data);
+      store.componentStore.components = data.filter(Boolean).map(transformLeaf2Data);
     },
     [store, treeData]
   );
