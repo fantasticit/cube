@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import { transformStyle } from '@/plugins/shared';
+import cls from 'classnames';
 
 export const JSONSchemaForm = ({
-  // store,
+  path,
+  activePath,
+  isActivePath,
+  indicator,
   style,
   schema,
   data,
@@ -63,7 +66,16 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div style={transformStyle(style)}>
+    <div
+      style={style}
+      className={cls({
+        'component-indicator-wrapper': true,
+        'active': isActivePath,
+      })}
+      data-path={path}
+      data-active-path={activePath}
+    >
+      {indicator}
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}
       <Form name="basic" layout={layout} ref={form} onFinish={onFinish}>
@@ -94,6 +106,9 @@ export const JSONSchemaForm = ({
 
 JSONSchemaForm.componentInfo = {
   name: 'JSONSchemaForm',
+  title: '表单',
+  description: '通过 schmea 配置化渲染',
+  icon: 'JSONSchemaFormIcon',
 };
 
 JSONSchemaForm.defaultProps = {

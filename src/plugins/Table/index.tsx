@@ -1,9 +1,13 @@
 import React, { useMemo } from 'react';
 import { Table as ATable } from 'antd';
-import { transformStyle } from '@/plugins/shared';
+import cls from 'classnames';
 
 export const Table = ({
   store,
+  path,
+  activePath,
+  isActivePath,
+  indicator,
   runtimeName,
   style,
   rowKey,
@@ -34,9 +38,9 @@ export const Table = ({
   const rowSelection = useMemo(() => {
     return {
       onSelect: (record, _, selectedRows) => {
-        store.setValue(`${runtimeName}.selectedRows.data`, selectedRows);
-        store.setValue(`${runtimeName}.selectedRows.length`, selectedRows.length);
-        store.setValue(
+        store.runtimeStore.setValue(`${runtimeName}.selectedRows.data`, selectedRows);
+        store.runtimeStore.setValue(`${runtimeName}.selectedRows.length`, selectedRows.length);
+        store.runtimeStore.setValue(
           `${runtimeName}.selectedRow.data`,
           selectedRows.length > 0 ? record : Object.create(null)
         );
@@ -45,7 +49,16 @@ export const Table = ({
   }, [store, runtimeName]);
 
   return (
-    <div style={transformStyle(style)}>
+    <div
+      style={style}
+      className={cls({
+        'component-indicator-wrapper': true,
+        'active': isActivePath,
+      })}
+      data-path={path}
+      data-active-path={activePath}
+    >
+      {indicator}
       <ATable
         loading={loading}
         rowKey={rowKey || (columns && columns[0] && columns[0].key)}
@@ -59,6 +72,9 @@ export const Table = ({
 
 Table.componentInfo = {
   name: 'Table',
+  title: '表格',
+  description: '分页展示表格数据',
+  icon: 'TableIcon',
 };
 
 Table.defaultProps = {

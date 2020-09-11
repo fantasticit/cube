@@ -6,16 +6,31 @@
   }
 
   li {
-    height: 36px;
+    display: flex;
+    padding: 8px 8px;
     border: 1px dashed #dddddd;
     color: #333333;
     overflow: hidden;
     font-size: 12px;
-    line-height: 36px;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
     cursor: move;
+
+    > span {
+      display: flex;
+      align-items: center;
+      color: #444444;
+
+      + span {
+        margin-left: 8px;
+      }
+
+      &:last-of-type {
+        color: #333333;
+        font-weight: 600;
+      }
+    }
 
     + li {
       margin-top: 1em;

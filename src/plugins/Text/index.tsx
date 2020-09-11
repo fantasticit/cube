@@ -1,15 +1,30 @@
 import React from 'react';
-import { transformStyle } from '@/plugins/shared';
+import cls from 'classnames';
 import { markdown } from 'utils/markdown';
 
-export const Text = ({ style, text }) => {
+export const Text = ({ path, activePath, isActivePath, indicator, style, text }) => {
   return (
-    <span style={transformStyle(style)} dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
+    <span
+      className={cls({
+        'component-indicator-wrapper': true,
+
+        'active': isActivePath,
+      })}
+      data-path={path}
+      data-active-path={activePath}
+      style={style}
+    >
+      {indicator}
+      <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
+    </span>
   );
 };
 
 Text.componentInfo = {
   name: 'Text',
+  title: '文本',
+  description: '支持 Markdown 或者 HTML',
+  icon: 'TextIcon',
 };
 
 Text.defaultProps = {

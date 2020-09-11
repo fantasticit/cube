@@ -1,8 +1,18 @@
 import React, { useCallback } from 'react';
+import cls from 'classnames';
 import { Col } from 'antd';
-import { transformStyle } from '@/plugins/shared';
 
-export const Container = ({ store, path, style, span = 12, offset = 0, children }) => {
+export const Container = ({
+  store,
+  path,
+  activePath,
+  isActivePath,
+  indicator,
+  style,
+  span = 12,
+  offset = 0,
+  children,
+}) => {
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
   }, []);
@@ -12,7 +22,7 @@ export const Container = ({ store, path, style, span = 12, offset = 0, children 
       evt.preventDefault();
       evt.stopPropagation();
       const componentName = evt.dataTransfer.getData('application/drag-component');
-      store.addComponentToTarget(path, componentName);
+      store.componentStore.addComponentToTarget(path, componentName);
     },
     [store, path]
   );
@@ -21,19 +31,20 @@ export const Container = ({ store, path, style, span = 12, offset = 0, children 
     <Col
       onDrop={onDrop}
       onDragOver={onDragOver}
-      style={{
-        ...transformStyle(style),
-      }}
+      style={style}
       span={span}
       offset={offset}
+      className={cls({
+        'component-indicator-wrapper': true,
+        'active': isActivePath,
+      })}
+      data-path={path}
+      data-active-path={activePath}
     >
+      {indicator}
       {store.isEmptyChildNode(children) ? (
         <div
           style={{
-            // position: 'relative',
-            // left: '50%',
-            // top: '50%',
-            // transform: 'translate(-50%, -50%)',
             height: '5rem',
             display: 'flex',
             alignItems: 'center',
@@ -51,6 +62,9 @@ export const Container = ({ store, path, style, span = 12, offset = 0, children 
 
 Container.componentInfo = {
   name: 'Container',
+  title: '容器',
+  description: '用于分组或者嵌套',
+  icon: 'ContainerIcon',
 };
 
 Container.defaultProps = {

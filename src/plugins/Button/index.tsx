@@ -1,11 +1,30 @@
 import React from 'react';
+import cls from 'classnames';
 import { Button as AButton } from 'antd';
-import { transformStyle } from '@/plugins/shared';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const Button = ({ runtimeName, store, path, style, onClick, ...props }) => {
+export const Button = ({
+  store,
+  path,
+  activePath,
+  isActivePath,
+  indicator,
+  runtimeName,
+  style,
+  onClick,
+  ...props
+}) => {
   return (
-    <span style={transformStyle(style)}>
+    <span
+      style={style}
+      className={cls({
+        'component-indicator-wrapper': true,
+        'active': isActivePath,
+      })}
+      data-path={path}
+      data-active-path={activePath}
+    >
+      {indicator}
       <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />
     </span>
   );
@@ -13,6 +32,9 @@ export const Button = ({ runtimeName, store, path, style, onClick, ...props }) =
 
 Button.componentInfo = {
   name: 'Button',
+  title: '按钮',
+  description: '触发操作',
+  icon: 'ButtonIcon',
 };
 
 Button.defaultProps = {
