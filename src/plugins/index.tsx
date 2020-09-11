@@ -1,4 +1,5 @@
 import React from 'react';
+import cls from 'classnames';
 import { observer } from 'mobx-react';
 import { getProps, getSchema, transformStyle, isHidden } from '@/plugins/shared';
 import { Registry } from './registry';
@@ -22,7 +23,11 @@ const withWrapper = (Component) => {
     const { style, hidden, store, path } = props;
 
     const activePath = store.componentStore.selectedComponentInfo.path;
-    const isActivePath = activePath === path;
+    const isActivePath = !store.readonly && activePath === path;
+    const rootClassNames = cls({
+      'component-indicator-wrapper': !store.readonly,
+      'active': isActivePath,
+    });
 
     if (isHidden(hidden)) {
       return null;
@@ -31,6 +36,7 @@ const withWrapper = (Component) => {
     return (
       <Component
         {...props}
+        rootClassNames={rootClassNames}
         style={transformStyle(style)}
         activePath={activePath}
         isActivePath={isActivePath}

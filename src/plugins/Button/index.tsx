@@ -1,5 +1,4 @@
 import React from 'react';
-import cls from 'classnames';
 import { Button as AButton } from 'antd';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -10,20 +9,13 @@ export const Button = ({
   isActivePath,
   indicator,
   runtimeName,
+  rootClassNames,
   style,
   onClick,
   ...props
 }) => {
   return (
-    <span
-      style={style}
-      className={cls({
-        'component-indicator-wrapper': true,
-        'active': isActivePath,
-      })}
-      data-path={path}
-      data-active-path={activePath}
-    >
+    <span style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
       {indicator}
       <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />
     </span>

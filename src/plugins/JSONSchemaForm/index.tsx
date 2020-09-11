@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
-import cls from 'classnames';
 
 export const JSONSchemaForm = ({
   path,
   activePath,
-  isActivePath,
   indicator,
+  rootClassNames,
   style,
   schema,
   data,
@@ -66,15 +65,7 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div
-      style={style}
-      className={cls({
-        'component-indicator-wrapper': true,
-        'active': isActivePath,
-      })}
-      data-path={path}
-      data-active-path={activePath}
-    >
+    <div style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
       {indicator}
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}

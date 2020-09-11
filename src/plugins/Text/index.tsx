@@ -1,19 +1,9 @@
 import React from 'react';
-import cls from 'classnames';
 import { markdown } from 'utils/markdown';
 
-export const Text = ({ path, activePath, isActivePath, indicator, style, text }) => {
+export const Text = ({ path, activePath, indicator, rootClassNames, style, text }) => {
   return (
-    <span
-      className={cls({
-        'component-indicator-wrapper': true,
-
-        'active': isActivePath,
-      })}
-      data-path={path}
-      data-active-path={activePath}
-      style={style}
-    >
+    <span className={rootClassNames} data-path={path} data-active-path={activePath} style={style}>
       {indicator}
       <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
     </span>

@@ -1,14 +1,13 @@
 import React, { useMemo } from 'react';
 import { Table as ATable } from 'antd';
-import cls from 'classnames';
 
 export const Table = ({
   store,
   path,
   activePath,
-  isActivePath,
   indicator,
   runtimeName,
+  rootClassNames,
   style,
   rowKey,
   data,
@@ -49,15 +48,7 @@ export const Table = ({
   }, [store, runtimeName]);
 
   return (
-    <div
-      style={style}
-      className={cls({
-        'component-indicator-wrapper': true,
-        'active': isActivePath,
-      })}
-      data-path={path}
-      data-active-path={activePath}
-    >
+    <div style={style} className={rootClassNames} data-path={path} data-active-path={activePath}>
       {indicator}
       <ATable
         loading={loading}

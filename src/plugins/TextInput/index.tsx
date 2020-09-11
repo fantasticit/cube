@@ -1,5 +1,4 @@
 import React, { useMemo, useCallback } from 'react';
-import cls from 'classnames';
 import { Input } from 'antd';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -9,6 +8,7 @@ export const TextInput = ({
   activePath,
   isActivePath,
   indicator,
+  rootClassNames,
   style,
   type,
   hidden,
@@ -39,15 +39,7 @@ export const TextInput = ({
   );
 
   return (
-    <span
-      className={cls({
-        'component-indicator-wrapper': true,
-        'active': isActivePath,
-      })}
-      data-path={path}
-      data-active-path={activePath}
-      style={style}
-    >
+    <span className={rootClassNames} data-path={path} data-active-path={activePath} style={style}>
       {indicator}
       <Component
         style={{ display: 'inline-block' }}

@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
-import cls from 'classnames';
 import { Col } from 'antd';
 
 export const Container = ({
   store,
   path,
   activePath,
-  isActivePath,
   indicator,
+  rootClassNames,
   style,
   span = 12,
   offset = 0,
@@ -34,10 +33,7 @@ export const Container = ({
       style={style}
       span={span}
       offset={offset}
-      className={cls({
-        'component-indicator-wrapper': true,
-        'active': isActivePath,
-      })}
+      className={rootClassNames}
       data-path={path}
       data-active-path={activePath}
     >
