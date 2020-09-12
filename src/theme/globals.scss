@@ -96,6 +96,21 @@ body {
   content: '';
 }
 
+.editor-header {
+  .ant-btn-primary {
+    background-color: var(--editor-primary-color);
+  }
+
+  .ant-radio-button-wrapper:hover {
+    color: var(--editor-primary-color);
+  }
+
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: var(--editor-primary-color);
+    background-color: var(--editor-primary-color);
+  }
+}
+
 .props-editor {
   padding: 0 12px;
 
@@ -147,7 +162,6 @@ body {
   font-size: 12px;
   transform: translate(0, -100%);
   cursor: pointer;
-  z-index: 1000;
 
   .component-indicator-icon {
     margin-left: 6px;
@@ -157,7 +171,6 @@ body {
 .component-indicator-wrapper {
   position: relative;
   background: transparent;
-  z-index: 10000;
 
   &::after {
     position: absolute;
@@ -169,7 +182,7 @@ body {
     opacity: 0;
     content: '';
     pointer-events: none;
-    z-index: 10000;
+    z-index: 1;
   }
 
   &.active {

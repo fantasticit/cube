@@ -3,30 +3,81 @@ export const STYLE_SCHEMA = {
   width: {
     title: 'Width',
     type: 'textaddon',
-    addons: ['', 'px', '%', 'vw'],
+    addons: ['px', '%', 'vw', ''],
   },
   maxWidth: {
     title: 'maxWidth',
     type: 'textaddon',
-    addons: ['', 'px', '%', 'vw'],
+    addons: ['px', '%', 'vw', ''],
   },
   height: {
     title: 'Height',
     type: 'textaddon',
-    addons: ['', 'px', '%', 'vh'],
+    addons: ['px', '%', 'vh', ''],
   },
   maxHeight: {
     title: 'maxHeight',
     type: 'textaddon',
-    addons: ['', 'px', '%', 'vh'],
+    addons: ['px', '%', 'vh', ''],
   },
   // E 宽高
+
+  // S 外边距
+  marginTop: {
+    title: 'Margin Top',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  marginRight: {
+    title: 'Margin Right',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  marginBottom: {
+    title: 'Margin Bottom',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  marginLeft: {
+    title: 'Margin Left',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  // E 外边距
+
+  // S 内边距
+  paddingTop: {
+    title: 'Padding Top',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  paddingRight: {
+    title: 'Padding Right',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  paddingBottom: {
+    title: 'Padding Bottom',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  paddingLeft: {
+    title: 'Padding Left',
+    type: 'textaddon',
+    addons: ['px', '%', 'vw', 'vh', ''],
+  },
+  // E 内边距
 
   // S 字体
   fontFamily: {
     title: 'Font Family',
     type: 'select',
-    options: ['left', 'center', 'right'],
+    options: [
+      {
+        label: '默认字体',
+        value: '',
+      },
+    ],
   },
   fontWeight: {
     title: 'Font Weight',

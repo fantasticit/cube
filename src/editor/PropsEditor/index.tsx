@@ -3,10 +3,10 @@ import clone from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import { ConfigProvider, Tabs } from 'antd';
 import { STYLE_SCHEMA } from '@/plugins';
-// import { CloseOutlined } from '@ant-design/icons';
 import { renderEditorItem } from './renderEditorItem';
 import { Font } from './Style/Font';
 import { WidthHeight } from './Style/WidthHeight';
+import { MarginPadding } from './Style/MarginPadding';
 import { Border } from './Style/Border';
 import styles from './index.module.scss';
 
@@ -66,15 +66,18 @@ export const PropsEditor = ({ active, store, props: defaultProps, schema, onChan
             : Empty}
         </TabPane>
         <TabPane tab="样式" key="2">
-          {active ? (
-            <ConfigProvider componentSize="middle">
-              <WidthHeight render={renderStyleProp} />
-              <Border render={renderStyleProp} />
-              <Font render={renderStyleProp} />
-            </ConfigProvider>
-          ) : (
-            Empty
-          )}
+          <ConfigProvider componentSize="middle">
+            {active ? (
+              <>
+                <WidthHeight render={renderStyleProp} />
+                <MarginPadding render={renderStyleProp} />
+                <Border render={renderStyleProp} />
+                <Font render={renderStyleProp} />
+              </>
+            ) : (
+              Empty
+            )}
+          </ConfigProvider>
         </TabPane>
       </Tabs>
     </div>

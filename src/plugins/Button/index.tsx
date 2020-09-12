@@ -14,9 +14,13 @@ export const Button = ({
   ...props
 }) => {
   return (
-    <span {...editorProps} style={style}>
+    <span {...editorProps} style={{ ...style, display: 'inline-block' }}>
       {indicator}
-      <AButton {...props} onClick={() => typeof onClick === 'function' && onClick()} />
+      <AButton
+        {...props}
+        style={{ width: '100%' }}
+        onClick={() => typeof onClick === 'function' && onClick()}
+      />
     </span>
   );
 };
@@ -31,6 +35,9 @@ Button.componentInfo = {
 Button.defaultProps = {
   children: '文案',
   loading: false,
+  style: {
+    width: '80px',
+  },
 };
 
 Button.schema = {

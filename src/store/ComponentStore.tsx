@@ -65,6 +65,11 @@ export class ComponentStore {
    * @param path
    */
   @action selectComponent = (path) => {
+    if (this.selectedComponentInfo.path === path) {
+      this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
+      return;
+    }
+
     const component = this.getComponent(path);
     /* eslint-disable prefer-const */
     let { props, component: componentName } = component;

@@ -10,7 +10,7 @@ export const Font = ({ render }) => {
       </Row>
       <Row gutter={8}>
         <Col span={12}>{render('fontSize')}</Col>
-        <Col span={12}>{render('fontFamily')}</Col>
+        <Col span={12}>{render('fontWeight')}</Col>
       </Row>
       <Row gutter={8}>
         <Col span={12}>{render('letterSpace')}</Col>

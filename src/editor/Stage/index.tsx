@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import cls from 'classnames';
+import { observer } from 'mobx-react';
 import { PageRender } from '@/plugins';
 import { Store } from '@/store';
 import styles from './index.module.scss';
@@ -9,7 +10,7 @@ interface IProps {
   preview?: boolean;
 }
 
-export const Stage: React.FC<IProps> = ({ store }) => {
+export const Stage: React.FC<IProps> = observer(({ store }) => {
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
   }, []);
@@ -31,4 +32,4 @@ export const Stage: React.FC<IProps> = ({ store }) => {
       <PageRender store={store} />
     </div>
   );
-};
+});

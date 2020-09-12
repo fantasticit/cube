@@ -74,9 +74,7 @@ export const SimpleArticleManage = {
             name: 'button2',
             component: 'Button',
             props: {
-              style: {
-                width: '100px',
-              },
+              style: {},
               children: '刷新',
               loading: '{{api1.isFetching}}',
               onClick: '{{api1.fetch}}',
