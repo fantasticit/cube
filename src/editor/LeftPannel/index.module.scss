@@ -41,13 +41,31 @@
     }
 
     li {
+      position: relative;
       height: 36px;
       line-height: 36px;
       text-align: center;
       cursor: pointer;
 
+      &::after {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        width: 1px;
+        height: 20px;
+        background: var(--editor-primary-color);
+      }
+
       &.active {
         color: var(--editor-primary-color);
+
+        &::after {
+          content: '';
+        }
+      }
+
+      + li {
+        margin-top: .5em;
       }
     }
   }

@@ -1,7 +1,40 @@
 .wrapper {
+  position: relative;
   padding: 1em;
 
   .editorWrapper {
     cursor: pointer;
+  }
+}
+
+.formWrapper {
+  h2 {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    margin-bottom: 24px;
+    color: var(--editor-primary-color);
+
+    > span {
+      margin-left: 8px;
+      color: var(--editor-regular-text);
+    }
+  }
+
+  button {
+    background: var(--editor-primary-color);
+  }
+}
+
+.labelWrapper {
+  h3 {
+    color: var(--editor-regular-text);
+    font-weight: 400;
+    font-size: 1em;
+  }
+
+  p {
+    color: var(--editor-second-text);
+    font-size: .8em;
   }
 }
