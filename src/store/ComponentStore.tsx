@@ -63,9 +63,10 @@ export class ComponentStore {
   /**
    * 选中指定路径组件
    * @param path
+   * @param reselect
    */
-  @action selectComponent = (path) => {
-    if (this.selectedComponentInfo.path === path) {
+  @action selectComponent = (path, reselect = false) => {
+    if (!reselect && this.selectedComponentInfo.path === path) {
       this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
       return;
     }

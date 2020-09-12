@@ -18,7 +18,7 @@ export const Inspector: React.FC<IProps> = observer(({ store }) => {
       schema={schema}
       onChange={(newProps) => {
         store.componentStore.updateComponentProps(path, newProps);
-        store.componentStore.selectComponent(path);
+        store.componentStore.selectComponent(path, true);
       }}
     />
   );
