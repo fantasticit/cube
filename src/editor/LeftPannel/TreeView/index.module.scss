@@ -3,11 +3,19 @@
 }
 
 .leafWrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
+  padding-right: 32px;
 
   > span:last-of-type {
+    position: absolute;
+    right: 0;
     display: none;
+
+    span + span {
+      margin-left: 4px;
+    }
   }
 
   &:hover {

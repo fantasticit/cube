@@ -85,6 +85,23 @@ export class ComponentStore {
   };
 
   /**
+   * 隐藏/展示组件
+   * @param path
+   * @param value
+   */
+  @action toggleComponentHidden = (path) => {
+    const segments = (path + '.props.hidden').split('.');
+    segments.reduce((accu, path, idx) => {
+      if (idx === segments.length - 1) {
+        accu[path] = !accu[path];
+      } else {
+        accu[path] = accu[path] || {};
+      }
+      return accu[path];
+    }, this.components);
+  };
+
+  /**
    * 更新指定路径组件 props
    * @param path
    * @param value
@@ -175,5 +192,26 @@ export class ComponentStore {
     merge(style, props1.style || {});
     merge(style, props2.style || {});
     return Object.assign(Object.create(null), props1, props2, { style });
+  }
+
+  /**
+   * 判断组件是否隐藏
+   * @param props
+   */
+  isComponentHidden = (props) => {
+    const hidden = props.hidden;
+
+    return (
+      !/{{(\S+)}}/.test(hidden) &&
+      (hidden === 'true' ? true : hidden === 'false' ? false : Boolean(hidden))
+    );
+  };
+
+  /**
+   * 用于判断子节点是否为空
+   * @param child
+   */
+  isEmptyChildNode(child) {
+    return Array.isArray(child) ? child.length <= 0 : Boolean(child);
   }
 }

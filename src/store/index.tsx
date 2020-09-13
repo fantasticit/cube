@@ -27,14 +27,6 @@ export class Store {
     return this.apiStore.apis;
   }
 
-  /**
-   * 用于判断子节点是否为空
-   * @param child
-   */
-  isEmptyChildNode(child) {
-    return Array.isArray(child) ? child.length <= 0 : Boolean(child);
-  }
-
   toJSON() {
     return {
       components: this.components,

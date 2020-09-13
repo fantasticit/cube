@@ -35,7 +35,7 @@ export const Container = ({
       {...editorProps}
     >
       {indicator}
-      {store.isEmptyChildNode(children) ? (
+      {store.componentStore.isEmptyChildNode(children) ? (
         <div
           style={{
             height: '5rem',

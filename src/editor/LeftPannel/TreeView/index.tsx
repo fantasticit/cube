@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Tree } from 'antd';
-import { DownOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { DownOutlined, CloseOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import cloneDeep from 'lodash/cloneDeep';
 import { observer } from 'mobx-react';
 import { Store } from '@/store';
@@ -10,20 +10,31 @@ interface IProps {
   store: Store;
 }
 
-const transformData2Leaf = (data, idx, path = '', store) => {
+const transformData2Leaf = (data, idx, path = '', store: Store) => {
   /* eslint-disable no-param-reassign */
   path = String(path || idx);
+  const hidden = store.componentStore.isComponentHidden(data.props);
 
   const title = (
     <div className={styles.leafWrapper}>
       <span>{data.name}</span>
-      <span
-        onClick={(evt) => {
-          evt.stopPropagation();
-          store.componentStore.deleteComponent(path);
-        }}
-      >
-        <CloseCircleOutlined />
+      <span>
+        <span
+          onClick={(evt) => {
+            evt.stopPropagation();
+            store.componentStore.toggleComponentHidden(path);
+          }}
+        >
+          {hidden ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+        </span>
+        <span
+          onClick={(evt) => {
+            evt.stopPropagation();
+            store.componentStore.deleteComponent(path);
+          }}
+        >
+          <CloseOutlined />
+        </span>
       </span>
     </div>
   );
