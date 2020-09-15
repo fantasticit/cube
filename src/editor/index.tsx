@@ -111,13 +111,15 @@ const Header = observer(({ store, device, onChangeDevice }) => {
 });
 
 const Main = observer(({ store, device }) => {
+  const isPC = device === 'pc';
+
   return (
     <main>
       <section>
         <LeftPannel store={store} />
       </section>
-      <section>
-        {device !== 'pc' ? (
+      <section style={{ overflow: isPC ? 'hidden' : 'auto', padding: !isPC ? '20px 0' : 0 }}>
+        {!isPC ? (
           <Device device={device}>
             <Stage store={store} />
           </Device>
