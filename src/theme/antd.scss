@@ -24,8 +24,17 @@
 }
 
 .editor-header {
+  .ant-btn:hover {
+    border-color: var(--editor-primary-color);
+    color: var(--editor-primary-color);
+  }
+
   .ant-btn-primary {
     background-color: var(--editor-primary-color);
+  }
+
+  .ant-btn-primary:hover {
+    color: #ffffff;
   }
 
   .ant-radio-button-wrapper:hover {

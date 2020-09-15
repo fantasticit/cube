@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { Drawer, Radio, Button } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Store } from '@/store';
 import { PCIcon } from './icons/PC';
@@ -75,6 +76,15 @@ const Header = observer(({ store, device, onChangeDevice }) => {
           </Button>
           <Button size="small" type="primary" style={{ marginLeft: 16 }} onClick={preview}>
             切换至{store.readonly ? '编辑' : '预览'}
+          </Button>
+          <Button
+            size="small"
+            style={{ marginLeft: 16 }}
+            onClick={() => {
+              window.open('https://github.com/fantasticit/cube');
+            }}
+          >
+            <GithubOutlined />
           </Button>
         </nav>
       </header>
