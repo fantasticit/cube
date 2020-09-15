@@ -13,7 +13,7 @@ interface IProps {
 const transformData2Leaf = (data, idx, path = '', store: Store) => {
   /* eslint-disable no-param-reassign */
   path = String(path || idx);
-  const hidden = store.componentStore.isComponentHidden(data.props);
+  const hidden = data.props.visible;
 
   const title = (
     <div className={styles.leafWrapper}>
@@ -22,7 +22,7 @@ const transformData2Leaf = (data, idx, path = '', store: Store) => {
         <span
           onClick={(evt) => {
             evt.stopPropagation();
-            store.componentStore.toggleComponentHidden(path);
+            store.componentStore.toggleComponentVisible(path);
           }}
         >
           {hidden ? <EyeOutlined /> : <EyeInvisibleOutlined />}

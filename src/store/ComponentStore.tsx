@@ -89,11 +89,11 @@ export class ComponentStore {
    * @param path
    * @param value
    */
-  @action toggleComponentHidden = (path) => {
-    const segments = (path + '.props.hidden').split('.');
+  @action toggleComponentVisible = (path) => {
+    const segments = (path + '.props.visible').split('.');
     segments.reduce((accu, path, idx) => {
       if (idx === segments.length - 1) {
-        accu[path] = !accu[path];
+        accu[path] = typeof accu[path] === 'undefined' ? false : !accu[path];
       } else {
         accu[path] = accu[path] || {};
       }

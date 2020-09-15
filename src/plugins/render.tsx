@@ -10,7 +10,6 @@ export const renderComponent = (component, idx, store, path = '', readonly) => {
   /* eslint-disable no-param-reassign */
   path = String(path || idx);
   const { id, name, props, component: componentName } = component;
-
   component.path = path;
 
   if (store.runtimeStore.getValue(name) === name) {
@@ -34,6 +33,10 @@ export const renderComponent = (component, idx, store, path = '', readonly) => {
     }
   });
   // 组件被隐藏
+  if ('visible' in runtimeProps && !runtimeProps.visible) {
+    return null;
+  }
+  // 组件不可见
   if ('hidden' in runtimeProps) {
     if (isHidden(runtimeProps.hidden)) {
       return null;
