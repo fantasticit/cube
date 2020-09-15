@@ -1,6 +1,8 @@
 .container {
+  height: 100%;
   padding: 40px 20px 40px;
   background: #ffffff;
+  overflow: auto;
   scroll-behavior: smooth;
 
   &.isPreview {
