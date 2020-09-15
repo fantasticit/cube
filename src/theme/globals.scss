@@ -123,6 +123,7 @@ body {
   border: 2px solid var(--editor-primary-color);
   background: transparent;
   touch-action: none;
+  pointer-events: none;
 
   // &::after {
   //   position: absolute;

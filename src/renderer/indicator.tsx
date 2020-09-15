@@ -97,7 +97,7 @@ export const render = ({ evt = null, store, path = null }) => {
   store.componentStore.selectComponent(path);
   const indicatorDOMNode = el.firstChild as HTMLDivElement;
   // 拖拽
-  interact(el as HTMLDivElement).draggable({
+  interact(el.querySelector('.component-indicator') as HTMLDivElement).draggable({
     inertia: true,
     autoScroll: true,
     listeners: {

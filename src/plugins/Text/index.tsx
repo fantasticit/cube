@@ -6,9 +6,9 @@ export const Text = ({ text, editorProps, style }) => {
   const ref = useRef();
 
   return (
-    <div {...restEditorProps} style={style}>
+    <span {...restEditorProps} style={style}>
       <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
-    </div>
+    </span>
   );
 };
 
