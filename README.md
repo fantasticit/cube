@@ -1,30 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# cube
 
-## Getting Started
+> 可视化页面交互搭建
 
-First, run the development server:
+## 特性
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[online demo](https://blog.wipi.tech/odin/editor)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. 支持 `API` 接口交互
+2. 支持组件间交互
+3. 编辑器支持调整位置、大小，以及直接编辑属性
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 思路
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. 通过 JSON 配置描述页面信息
+2. 通过配置初始化 Store
+3. 通过配置渲染页面
+4. 通过交互组件修改 Store 数据，重新渲染页面
