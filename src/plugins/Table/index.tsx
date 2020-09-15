@@ -41,6 +41,11 @@ export const Table = ({
           selectedRows.length > 0 ? record : Object.create(null)
         );
       },
+      onSelectAll: (_, selectedRows) => {
+        store.runtimeStore.setValue(`${bindKey}.selectedRows.data`, selectedRows);
+        store.runtimeStore.setValue(`${bindKey}.selectedRows.length`, selectedRows.length);
+        store.runtimeStore.setValue(`${bindKey}.selectedRow.data`, Object.create(null));
+      },
     };
   }, [store, bindKey]);
 
