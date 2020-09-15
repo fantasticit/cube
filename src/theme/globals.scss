@@ -122,6 +122,7 @@ body {
 .component-indicator-wrapper {
   position: relative;
   background: transparent;
+  touch-action: none;
 
   &::after {
     position: absolute;

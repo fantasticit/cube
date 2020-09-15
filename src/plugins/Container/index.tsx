@@ -1,8 +1,14 @@
-import React, { useCallback } from 'react';
-import { Col } from 'antd';
+import React, { useCallback, useEffect, useRef } from 'react';
+// import { Col } from 'antd';
 
 export const Container = ({ store, editorProps, style, span = 12, offset = 0, children }) => {
-  const { bindKey, indicator, path, ...restEditorProps } = editorProps;
+  const ref = useRef();
+  const { bindKey, indicator, path, draggable, resizeable, ...restEditorProps } = editorProps;
+
+  useEffect(() => {
+    draggable(ref.current);
+    resizeable(ref.current);
+  }, [draggable, resizeable]);
 
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
@@ -19,13 +25,14 @@ export const Container = ({ store, editorProps, style, span = 12, offset = 0, ch
   );
 
   return (
-    <Col
+    <div
       onDrop={onDrop}
       onDragOver={onDragOver}
       span={span}
       offset={offset}
       style={style}
       {...restEditorProps}
+      ref={ref}
     >
       {indicator}
       {store.componentStore.isEmptyChildNode(children) ? (
@@ -43,7 +50,7 @@ export const Container = ({ store, editorProps, style, span = 12, offset = 0, ch
       ) : (
         children
       )}
-    </Col>
+    </div>
   );
 };
 

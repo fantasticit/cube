@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { markdown } from 'utils/markdown';
 
 export const Text = ({ text, editorProps, style }) => {
-  const { bindKey, indicator, ...restEditorProps } = editorProps;
+  const { bindKey, indicator, draggable, resizeable, ...restEditorProps } = editorProps;
+  const ref = useRef();
+
+  useEffect(() => {
+    draggable(ref.current);
+    resizeable(ref.current);
+  }, [draggable, resizeable]);
 
   return (
-    <span {...restEditorProps} style={style}>
+    <span {...restEditorProps} style={style} ref={ref}>
       {indicator}
       <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
     </span>

@@ -1270,6 +1270,11 @@
   resolved "https://registry.npmjs.org/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
+"@interactjs/types@1.9.22", "@interactjs/types@^1.9.22":
+  version "1.9.22"
+  resolved "https://registry.npmjs.org/@interactjs/types/-/types-1.9.22.tgz#1504d3170b062555b03ee8eb954ae653b7f614e2"
+  integrity sha512-GMMMCYE+FPrKCOOOqQ/ImpqLyinb6e8psw9MR9ymTJxnkmJMKrY/GDC/187PVxpWdtSqW+GibkeRfUCOv6vFjg==
+
 "@next/react-dev-overlay@9.5.3":
   version "9.5.3"
   resolved "https://registry.npmjs.org/@next/react-dev-overlay/-/react-dev-overlay-9.5.3.tgz#3275301f08045ecc709e3273031973a1f5e81427"
@@ -4792,6 +4797,13 @@ insert-css@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/insert-css/-/insert-css-2.0.0.tgz#eb5d1097b7542f4c79ea3060d3aee07d053880f4"
   integrity sha1-610Ql7dUL0x56jBg067gfQU4gPQ=
+
+interactjs@^1.9.22:
+  version "1.9.22"
+  resolved "https://registry.npmjs.org/interactjs/-/interactjs-1.9.22.tgz#5ae98d2dd46d720cccdb89222b4e1ddcbe5cfeb9"
+  integrity sha512-zUQefYtYJTazWKqDCSYV0vMJPFWp/PKXwpA3v75fD3+4+4J3/ItjlO7K3L1CpNWYU6s8uoEmwwOD6uDy6OoI/w==
+  dependencies:
+    "@interactjs/types" "1.9.22"
 
 internal-slot@^1.0.2:
   version "1.0.2"

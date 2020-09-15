@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button as AButton } from 'antd';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -10,9 +10,16 @@ export const Button = ({
   onClick,
   ...props
 }) => {
-  const { bindKey, indicator, ...restEditorProps } = editorProps;
+  const ref = useRef();
+  const { bindKey, indicator, draggable, resizeable, ...restEditorProps } = editorProps;
+
+  useEffect(() => {
+    draggable(ref.current);
+    resizeable(ref.current);
+  }, [draggable, resizeable]);
+
   return (
-    <span {...restEditorProps} style={{ ...style, display: 'inline-block' }}>
+    <span {...restEditorProps} style={{ ...style, display: 'inline-block' }} ref={ref}>
       {indicator}
       <AButton
         {...props}
