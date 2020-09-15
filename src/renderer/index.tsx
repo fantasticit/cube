@@ -1,28 +1,25 @@
 import React from 'react';
+import cls from 'classnames';
 import { Row } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react';
-import { Store } from '@/store';
-import { plugins } from './registry';
-import { transformStyle, isHidden } from './mixin';
+import { Store, IPageConfig } from '@/store';
+import { plugins } from '@/plugins';
 
-export const renderComponent = (component, idx, store, path = '', readonly) => {
+export const renderComponent = (component, idx, store: Store, path = '', readonly) => {
   /* eslint-disable no-param-reassign */
   path = String(path || idx);
   const { id, name, props, component: componentName } = component;
   component.path = path;
-
   if (store.runtimeStore.getValue(name) === name) {
     store.runtimeStore.initValue(name);
   }
-
   // 获取组件注册信息
   const Component = plugins.get(componentName.toLowerCase());
   if (!Component) {
     return null;
   }
   const defaultProps = Component.defaultProps;
-
   // 生成组件运行时 props
   const runtimeProps = store.componentStore.mergeProps(defaultProps, props);
 
@@ -38,16 +35,14 @@ export const renderComponent = (component, idx, store, path = '', readonly) => {
   }
   // 组件不可见
   if ('hidden' in runtimeProps) {
-    if (isHidden(runtimeProps.hidden)) {
+    if (store.componentStore.isComponentHidden(runtimeProps)) {
       return null;
     }
   }
-  // 注入 store，运行时绑定名称
-  runtimeProps.store = store;
-  runtimeProps.runtimeName = name;
   // 转换样式
+  // Todo: 后续是否需要统一转换
   if (runtimeProps.style) {
-    runtimeProps.style = transformStyle(runtimeProps.style);
+    runtimeProps.style = { ...runtimeProps.style };
   }
   // 渲染 children
   let children = runtimeProps.children || [];
@@ -83,34 +78,61 @@ export const renderComponent = (component, idx, store, path = '', readonly) => {
       </span>
     </div>
   );
+  const activePath = store.componentStore.selectedComponentInfo.path;
+  const isActivePath = !store.readonly && activePath === path;
+  // 编辑器传递的 props，预览模式下为空对象
+  const editorProps = store.readonly
+    ? {}
+    : {
+        className: cls({
+          'component-indicator-wrapper': true,
+          'active': isActivePath,
+        }),
+        onClick: selectComponent,
+      };
 
+  !store.readonly &&
+    Object.assign(editorProps, {
+      'bindKey': name,
+      indicator,
+      path,
+      'data-path': path,
+      'data-active-path': activePath,
+    });
   delete runtimeProps.hidden;
 
   return (
-    <Component
-      key={id}
-      path={path}
-      indicator={indicator}
-      selectComponent={selectComponent}
-      {...runtimeProps}
-    >
+    <Component key={id} store={store} editorProps={editorProps} {...runtimeProps}>
       {children}
     </Component>
   );
 };
 
 interface IProps {
-  store: Store;
+  config?: IPageConfig;
+  store?: Store;
 }
 
-export const PageRender: React.FC<IProps> = observer(({ store }) => {
-  const components = store.componentStore.components;
+export const Renderer: React.FC<IProps> = observer(({ config, store }) => {
+  if (!store && !config) {
+    return null;
+  }
+
+  const currentStore =
+    store ||
+    (config &&
+      new Store({
+        components: config.components,
+        apis: config.apis,
+      }));
 
   return (
     <Row>
-      {components
+      {currentStore.components
         .filter(Boolean)
-        .map((componet, idx) => renderComponent(componet, idx, store, '', store.readonly))}
+        .map((componet, idx) =>
+          renderComponent(componet, idx, currentStore, '', currentStore.readonly)
+        )}
     </Row>
   );
 });

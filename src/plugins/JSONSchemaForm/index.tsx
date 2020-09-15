@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { Button, Form, Input, message } from 'antd';
 
 export const JSONSchemaForm = ({
-  indicator,
   editorProps,
   style,
   schema,
@@ -13,6 +12,7 @@ export const JSONSchemaForm = ({
   onSubmit,
   submitSuccessText,
 }) => {
+  const { bindKey, indicator, path, ...restEditorProps } = editorProps;
   const form = useRef(null);
   const [loading, setLoading] = useState(false);
 
@@ -63,7 +63,7 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div {...editorProps} style={style}>
+    <div {...restEditorProps} style={style}>
       {indicator}
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}

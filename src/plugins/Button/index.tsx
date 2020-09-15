@@ -4,17 +4,15 @@ import { Button as AButton } from 'antd';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const Button = ({
   store,
-  path,
-  indicator,
-  runtimeName,
   editorProps,
   // 以下为自身所需
   style,
   onClick,
   ...props
 }) => {
+  const { bindKey, indicator, ...restEditorProps } = editorProps;
   return (
-    <span {...editorProps} style={{ ...style, display: 'inline-block' }}>
+    <span {...restEditorProps} style={{ ...style, display: 'inline-block' }}>
       {indicator}
       <AButton
         {...props}

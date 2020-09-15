@@ -1,16 +1,9 @@
 import React, { useCallback } from 'react';
 import { Col } from 'antd';
 
-export const Container = ({
-  store,
-  path,
-  indicator,
-  editorProps,
-  style,
-  span = 12,
-  offset = 0,
-  children,
-}) => {
+export const Container = ({ store, editorProps, style, span = 12, offset = 0, children }) => {
+  const { bindKey, indicator, path, ...restEditorProps } = editorProps;
+
   const onDragOver = useCallback((evt) => {
     evt.preventDefault();
   }, []);
@@ -32,7 +25,7 @@ export const Container = ({
       span={span}
       offset={offset}
       style={style}
-      {...editorProps}
+      {...restEditorProps}
     >
       {indicator}
       {store.componentStore.isEmptyChildNode(children) ? (
@@ -42,6 +35,7 @@ export const Container = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            border: '1px dashed #ddd',
           }}
         >
           请放置子组件

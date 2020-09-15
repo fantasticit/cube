@@ -46,8 +46,8 @@ const Header = observer(({ store, device, onChangeDevice }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
 
   const preview = () => {
-    store.readonly = !store.readonly;
-    // setPreviewVisible(true);
+    store.readonly = true;
+    setPreviewVisible(true);
   };
 
   const exitPreview = () => {
@@ -104,7 +104,7 @@ const Header = observer(({ store, device, onChangeDevice }) => {
         onClose={exitPreview}
         footer={null}
       >
-        <Stage store={store} preview={true} />
+        <Stage store={store} />
       </Drawer>
     </>
   );

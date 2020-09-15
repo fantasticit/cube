@@ -1,5 +1,4 @@
 import { plugins } from './registry';
-import { PageRender } from './render';
 import { STYLE_SCHEMA } from './style';
 import { Button } from './Button';
 import { Container } from './Container';
@@ -15,4 +14,4 @@ plugins.register(Button);
 plugins.register(Table);
 plugins.register(JSONSchemaForm);
 
-export { plugins, PageRender, STYLE_SCHEMA };
+export { plugins, STYLE_SCHEMA };

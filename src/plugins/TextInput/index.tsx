@@ -4,7 +4,6 @@ import { Input } from 'antd';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const TextInput = ({
   store,
-  indicator,
   editorProps,
   style,
   type,
@@ -15,6 +14,8 @@ export const TextInput = ({
   onPressEnter,
   ...props
 }) => {
+  const { bindKey, indicator, ...restEditorProps } = editorProps;
+
   const Component = useMemo(() => {
     switch (type) {
       case 'Search':
@@ -36,7 +37,7 @@ export const TextInput = ({
   );
 
   return (
-    <span {...editorProps} style={style}>
+    <span {...restEditorProps} style={style}>
       {indicator}
       <Component style={{ display: 'inline-block' }} {...props} onPressEnter={onSubmit} />
     </span>

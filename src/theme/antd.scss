@@ -1,0 +1,39 @@
+// antd 样式覆盖
+.ant-input:focus {
+  border-color: var(--editor-primary-color) !important;
+  box-shadow: 0 0 0 2px var(--editor-primary-color-10);
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+  border-color: var(--editor-primary-color) !important;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: var(--editor-primary-color) !important;
+  box-shadow: 0 0 0 2px var(--editor-primary-color-10);
+}
+
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  color: #ffffff;
+  background-color: var(--editor-primary-color);
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  content: '';
+}
+
+.editor-header {
+  .ant-btn-primary {
+    background-color: var(--editor-primary-color);
+  }
+
+  .ant-radio-button-wrapper:hover {
+    color: var(--editor-primary-color);
+  }
+
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    border-color: var(--editor-primary-color);
+    background-color: var(--editor-primary-color);
+  }
+}

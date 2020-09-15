@@ -31,35 +31,23 @@ p {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: inherit;
+  font-weight: 500;
+}
+
 body {
   --editor-primary-color: rgb(34, 100, 245);
   --editor-primary-color-10: rgba(34, 100, 245, .1);
   --editor-primary-text: rgba(0, 0, 0, .85); // 着重字体颜色
   --editor-regular-text: rgba(0, 0, 0, .65); // 常规字体颜色
   --editor-second-text: rgba(0, 0, 0, .45); // 描述字体颜色
-  --editor-main-bgcolor: #f2f3f4; // 编辑器主题背景色
-  --editor-pannel-bgcolor: #ffffff; // 编辑器面板背景色
-  --editor-page-preview-pannel-width: 375px; // 编辑器页面预览编辑区域宽度
-  --editor-border-color: #d9d9d9; // 编辑器边框颜色
-  --editor-text-color-primary: rgba(0, 0, 0, .85); // 编辑器主要字体颜色
-  --editor-text-color-second: rgba(0, 0, 0, .65); // 编辑器次要字体颜色
-  --editor-text-color-thirty: rgba(0, 0, 0, .45); // 编辑器辅助字体颜色
-  --editor-text-font-size-title: 16px; // 编辑器标题文字大小
-  --editor-text-font-size-desc: 14px; // 编辑器说明文字大小
-  --editor-text-font-size-helper: 12px; // 编辑器帮助文字大小
-  --editor-padding-horizontal: 16px; // 编辑器头部水平方向内边距
-  --editor-padding-horizontal-medium: 12px; // 编辑器头部水平方向内边距
-  --editor-padding-horizontal-small: 8px; // 编辑器头部水平方向内边距
-  --editor-padding-vertical: 16px; // 编辑器头部水平方向内边距
-  --editor-padding-vertical-medium: 12px; // 编辑器头部水平方向内边距
-  --editor-padding-vertical-small: 8px; // 编辑器头部水平方向内边距
-  --editor-header-box-shadow: 0 1px 7px rgba(0, 0, 0, .06); // 编辑器头部影音
-  --editor-page-component-pannel-boxshadow: 3px 0 16px rgba(0, 0, 0, .06); // 编辑器组件面板阴影
-  --editor-page-preview-pannel-boxshadow: 0 3px 16px 0 rgba(0, 0, 0, .04); // 编辑器页面预览面板阴影
-  --editor-page-preview-pannel-hover-bgcolor: #ededef; // 编辑器预览面板hover组件时背景色
-  --editor-page-component-eidtor-pannel-boxshadow:
-    0 3px 16px
-    rgba(0, 0, 0, .06); // 编辑器组件属性编辑器面板阴影
 
   img {
     opacity: 1;
@@ -72,45 +60,7 @@ body {
   white-space: nowrap;
 }
 
-// antd 样式覆盖
-.ant-input:focus {
-  box-shadow: 0 0 0 2px var(--editor-primary-color-10);
-}
-
-.ant-input:hover,
-.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
-  border-color: var(--editor-primary-color) !important;
-}
-
-.ant-select-focused:not(.ant-select-disabled).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-  border-color: var(--editor-primary-color) !important;
-  box-shadow: 0 0 0 2px var(--editor-primary-color-10);
-}
-
-.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
-  color: #ffffff;
-  background-color: var(--editor-primary-color);
-}
-
-.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
-  content: '';
-}
-
-.editor-header {
-  .ant-btn-primary {
-    background-color: var(--editor-primary-color);
-  }
-
-  .ant-radio-button-wrapper:hover {
-    color: var(--editor-primary-color);
-  }
-
-  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    border-color: var(--editor-primary-color);
-    background-color: var(--editor-primary-color);
-  }
-}
-
+// 右侧编辑器
 .props-editor {
   padding: 0 12px;
 
@@ -149,6 +99,7 @@ body {
   }
 }
 
+// 编辑器内组件指示相关
 .component-indicator {
   position: absolute;
   top: 0;
@@ -240,10 +191,4 @@ body {
   @at-root .ant-popover-inner-content {
     padding: 0 !important;
   }
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  color: inherit;
-  font-weight: 500;
 }

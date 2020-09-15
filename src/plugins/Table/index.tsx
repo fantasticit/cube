@@ -3,8 +3,6 @@ import { Table as ATable } from 'antd';
 
 export const Table = ({
   store,
-  indicator,
-  runtimeName,
   editorProps,
   style,
   rowKey,
@@ -12,6 +10,7 @@ export const Table = ({
   loading = false,
   columns: defaultColumns,
 }) => {
+  const { bindKey, indicator, ...restEditorProps } = editorProps;
   const columns = defaultColumns.length
     ? defaultColumns.map((key) => {
         return typeof key === 'object'
@@ -35,18 +34,18 @@ export const Table = ({
   const rowSelection = useMemo(() => {
     return {
       onSelect: (record, _, selectedRows) => {
-        store.runtimeStore.setValue(`${runtimeName}.selectedRows.data`, selectedRows);
-        store.runtimeStore.setValue(`${runtimeName}.selectedRows.length`, selectedRows.length);
+        store.runtimeStore.setValue(`${bindKey}.selectedRows.data`, selectedRows);
+        store.runtimeStore.setValue(`${bindKey}.selectedRows.length`, selectedRows.length);
         store.runtimeStore.setValue(
-          `${runtimeName}.selectedRow.data`,
+          `${bindKey}.selectedRow.data`,
           selectedRows.length > 0 ? record : Object.create(null)
         );
       },
     };
-  }, [store, runtimeName]);
+  }, [store, bindKey]);
 
   return (
-    <div {...editorProps} style={style}>
+    <div {...restEditorProps} style={style}>
       {indicator}
       <ATable
         loading={loading}

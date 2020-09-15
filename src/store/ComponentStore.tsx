@@ -7,10 +7,11 @@ import merge from 'lodash/merge';
 import { plugins } from 'plugins';
 import { uuid } from 'utils/uuid';
 import { RuntimeStore } from './RuntimeStore';
+import { IComponentConfig } from './type';
 
 export class ComponentStore {
   @observable runtimeStore: RuntimeStore;
-  @observable components = []; // 组件
+  @observable components: Array<IComponentConfig> = []; // 组件
   @observable selectedComponentInfo = {
     props: {},
     schema: {},

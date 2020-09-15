@@ -1,10 +1,11 @@
 import { observable, action } from 'mobx';
 import { FetchStore } from './FetchStore';
 import { RuntimeStore } from './RuntimeStore';
+import { IApiConfig } from './type';
 
 export class ApiStore {
   @observable runtimeStore: RuntimeStore = null;
-  @observable apis = []; // API 接口
+  @observable apis: Array<IApiConfig> = []; // API 接口
 
   constructor(runtimeStore, apis = []) {
     this.runtimeStore = runtimeStore;
