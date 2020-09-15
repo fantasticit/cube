@@ -54,7 +54,7 @@ export class ComponentStore {
    * 获取指定路径组件
    * @param path
    */
-  @action getComponent = (path) => {
+  @action getComponent = (path): IComponentConfig => {
     const segments = String(path).split('.');
     return segments.reduce((accu, path) => {
       return accu[path];

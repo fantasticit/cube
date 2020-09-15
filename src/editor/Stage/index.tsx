@@ -25,7 +25,10 @@ export const Stage: React.FC<IProps> = observer(({ store }) => {
 
   return (
     <div
-      className={cls({ [styles.container]: true, [styles.isPreview]: store.readonly })}
+      className={cls({
+        [styles.container]: true,
+        [styles.isPreview]: store.readonly,
+      })}
       {...(store.readonly ? {} : { onDragOver, onDrop })}
     >
       <Renderer store={store} />

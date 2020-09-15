@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { Table as ATable } from 'antd';
 
 export const Table = ({
@@ -10,13 +10,7 @@ export const Table = ({
   loading = false,
   columns: defaultColumns,
 }) => {
-  const ref = useRef();
-  const { bindKey, indicator, draggable, resizeable, ...restEditorProps } = editorProps;
-
-  useEffect(() => {
-    draggable(ref.current);
-    resizeable(ref.current);
-  }, [draggable, resizeable]);
+  const { bindKey, ...restEditorProps } = editorProps;
 
   const columns = defaultColumns.length
     ? defaultColumns.map((key) => {
@@ -57,8 +51,7 @@ export const Table = ({
   }, [store, bindKey]);
 
   return (
-    <div {...restEditorProps} style={style} ref={ref}>
-      {indicator}
+    <div {...restEditorProps} style={style}>
       <ATable
         loading={loading}
         rowKey={rowKey || (columns && columns[0] && columns[0].key)}

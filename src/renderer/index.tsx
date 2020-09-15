@@ -1,11 +1,8 @@
 import React from 'react';
-import cls from 'classnames';
-import { Row } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
 import { observer } from 'mobx-react';
-import interact from 'interactjs';
 import { Store, IPageConfig } from '@/store';
 import { plugins } from '@/plugins';
+import { render as renderIndicator } from './indicator';
 
 export const renderComponent = (component, idx, store: Store, path = '', readonly) => {
   /* eslint-disable no-param-reassign */
@@ -60,106 +57,23 @@ export const renderComponent = (component, idx, store: Store, path = '', readonl
   const selectComponent = readonly
     ? () => {}
     : (evt) => {
-        evt.stopPropagation();
-        store.componentStore.selectComponent(path);
+        renderIndicator({ evt, store });
       };
-  // 删除组件事件
-  const deleteComponent = readonly
-    ? () => {}
-    : (evt) => {
-        evt.stopPropagation();
-        store.componentStore.deleteComponent(path);
-      };
-  const position = { x: 0, y: 0 };
-  const draggable = readonly
-    ? () => {}
-    : (domNode) =>
-        interact(domNode.querySelector('.component-indicator')).draggable({
-          modifiers: [],
-          inertia: false,
-          listeners: {
-            move(event) {
-              position.x += event.dx;
-              position.y += event.dy;
-              const transform = `translate(${position.x}px, ${position.y}px)`;
-              domNode.style.transform = transform;
-            },
-            end() {
-              const transform = `translate(${position.x}px, ${position.y}px)`;
-              store.componentStore.updateComponentProps(path, {
-                ...props,
-                style: { ...props.style, transform },
-              });
-            },
-          },
-        });
-  let resizedStyle = {};
-  const resizeable = readonly
-    ? () => {}
-    : (domNode) => {
-        interact(domNode).resizable({
-          edges: {
-            top: true,
-            left: true,
-            bottom: true,
-            right: true,
-          },
-          listeners: {
-            move: (event) => {
-              let { x, y } = event.target.dataset;
-              x = parseFloat(x) || 0;
-              y = parseFloat(y) || 0;
-              const style = {
-                width: `${event.rect.width}px`,
-                height: `${event.rect.height}px`,
-                transform: `translate(${event.deltaRect.left}px, ${event.deltaRect.top}px)`,
-              };
-              Object.assign(event.target.style, style);
-              Object.assign(event.target.dataset, { x, y });
-              resizedStyle = style;
-            },
-            end: () => {
-              store.componentStore.updateComponentProps(path, {
-                ...props,
-                style: { ...props.style, ...resizedStyle },
-              });
-            },
-          },
-        });
-      };
-  // 编辑模式下，组件指示器
-  const indicator = readonly ? null : (
-    <div className={'component-indicator'} onClick={selectComponent}>
-      <span>{name}</span>
-      <span onClick={deleteComponent} className={'component-indicator-icon'}>
-        <CloseCircleOutlined />
-      </span>
-    </div>
-  );
   const activePath = store.componentStore.selectedComponentInfo.path;
   const isActivePath = !store.readonly && activePath === path;
-  // 编辑器传递的 props，预览模式下为空对象
+  // 编辑器传递的 props
   const editorProps = store.readonly
     ? {}
     : {
-        className: cls({
-          'component-indicator-wrapper': true,
-          'active': isActivePath,
-        }),
         onClick: selectComponent,
       };
-
   Object.assign(editorProps, {
     'bindKey': name,
-    indicator,
     path,
     'data-path': path,
     'data-active-path': activePath,
-    draggable,
-    resizeable,
   });
   delete runtimeProps.hidden;
-
   return (
     <Component key={id} store={store} editorProps={editorProps} {...runtimeProps}>
       {children}
@@ -186,12 +100,12 @@ export const Renderer: React.FC<IProps> = observer(({ config, store }) => {
       }));
 
   return (
-    <Row>
+    <div className="page" style={{ position: 'relative' }}>
       {currentStore.components
         .filter(Boolean)
         .map((componet, idx) =>
           renderComponent(componet, idx, currentStore, '', currentStore.readonly)
         )}
-    </Row>
+    </div>
   );
 });

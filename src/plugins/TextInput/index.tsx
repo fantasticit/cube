@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Input } from 'antd';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -14,13 +14,7 @@ export const TextInput = ({
   onPressEnter,
   ...props
 }) => {
-  const ref = useRef();
-  const { bindKey, indicator, draggable, resizeable, ...restEditorProps } = editorProps;
-
-  useEffect(() => {
-    draggable(ref.current);
-    resizeable(ref.current);
-  }, [draggable, resizeable]);
+  const { bindKey, ...restEditorProps } = editorProps;
 
   const Component = useMemo(() => {
     switch (type) {
@@ -43,8 +37,7 @@ export const TextInput = ({
   );
 
   return (
-    <span {...restEditorProps} style={style} ref={ref}>
-      {indicator}
+    <span {...restEditorProps} style={style}>
       <Component style={{ display: 'inline-block' }} {...props} onPressEnter={onSubmit} />
     </span>
   );

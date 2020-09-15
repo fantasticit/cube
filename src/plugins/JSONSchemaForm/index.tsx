@@ -12,9 +12,8 @@ export const JSONSchemaForm = ({
   onSubmit,
   submitSuccessText,
 }) => {
-  const ref = useRef();
   const form = useRef(null);
-  const { bindKey, indicator, path, draggable, resizeable, ...restEditorProps } = editorProps;
+  const { bindKey, path, ...restEditorProps } = editorProps;
   const [loading, setLoading] = useState(false);
 
   const onFinish = useCallback(
@@ -52,11 +51,6 @@ export const JSONSchemaForm = ({
   }
 
   useEffect(() => {
-    draggable(ref.current);
-    resizeable(ref.current);
-  }, [draggable, resizeable]);
-
-  useEffect(() => {
     if (!form.current) {
       return;
     }
@@ -69,8 +63,7 @@ export const JSONSchemaForm = ({
   }, [data]);
 
   return (
-    <div {...restEditorProps} style={style} ref={ref}>
-      {indicator}
+    <div {...restEditorProps} style={style}>
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}
       <Form name="basic" layout={layout} ref={form} onFinish={onFinish}>
