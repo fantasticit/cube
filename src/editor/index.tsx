@@ -49,7 +49,7 @@ const Header = observer(({ store, device, onChangeDevice }) => {
 
   const preview = () => {
     window.sessionStorage.setItem('page', JSON.stringify(store));
-    window.open('/preview');
+    window.open(`${process.env.NODE_ENV === 'production' ? '/odin/' : '/'}preview`);
   };
 
   return (
