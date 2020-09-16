@@ -111,7 +111,7 @@ body {
   background-color: var(--editor-primary-color);
   font-size: 12px;
   transform: translate(0, -100%);
-  cursor: pointer;
+  pointer-events: all;
 
   .component-indicator-icon {
     margin-left: 6px;
@@ -193,4 +193,11 @@ body {
   @at-root .ant-popover-inner-content {
     padding: 0 !important;
   }
+}
+
+
+
+
+.page {
+  position: relative;
 }

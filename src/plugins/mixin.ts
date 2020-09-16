@@ -2,7 +2,7 @@ import React from 'react';
 
 const COMMON_PROPS = {
   style: {
-    width: '100%',
+    width: 'auto',
     height: 'auto',
   },
   hidden: '',

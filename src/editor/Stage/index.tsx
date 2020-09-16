@@ -3,6 +3,7 @@ import cls from 'classnames';
 import { observer } from 'mobx-react';
 import { Renderer } from '@/renderer';
 import { Store } from '@/store';
+import { Grid } from './grid';
 import styles from './index.module.scss';
 
 interface IProps {
@@ -31,6 +32,7 @@ export const Stage: React.FC<IProps> = observer(({ store }) => {
       })}
       {...(store.readonly ? {} : { onDragOver, onDrop })}
     >
+      <Grid />
       <Renderer store={store} />
     </div>
   );

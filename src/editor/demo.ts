@@ -93,24 +93,13 @@ export const SimpleArticleManage = {
       },
     },
     {
-      id: '77191e5b-f1fe-408d-b532-1af17ac31f91',
-      name: 'container3',
-      component: 'Container',
+      id: '9d02a929-2135-479a-9f83-dbcee2c418ca',
+      name: 'table1',
+      component: 'Table',
       props: {
-        span: 24,
-        style: {},
-        children: [
-          {
-            id: '9d02a929-2135-479a-9f83-dbcee2c418ca',
-            name: 'table1',
-            component: 'Table',
-            props: {
-              loading: '{{api1.isFetching}}',
-              data: '{{api1.data.data.0}}',
-              columns: ['id', 'title', 'cover', 'status'],
-            },
-          },
-        ],
+        loading: '{{api1.isFetching}}',
+        data: '{{api1.data.data.0}}',
+        columns: ['id', 'title', 'cover', 'status'],
       },
     },
   ],

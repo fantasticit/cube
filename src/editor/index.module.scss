@@ -50,15 +50,15 @@
     height: calc(100vh - 52px);
 
     > section {
-      height: 100%;
-      overflow: auto;
+      // height: 100%;
+      // overflow: auto;
     }
 
     > section:nth-of-type(2) {
       flex: 1;
-      height: 100%;
+      // height: 100%;
       border-left: 1px solid #dddddd;
-      overflow: hidden;
+      overflow: auto;
       border-right: 1px solid #dddddd;
     }
 

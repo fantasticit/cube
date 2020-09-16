@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { markdown } from 'utils/markdown';
 
 export const Text = ({ text, editorProps, style }) => {
   const { bindKey, ...restEditorProps } = editorProps;
-  const ref = useRef();
 
   return (
-    <span {...restEditorProps} style={style}>
-      <span dangerouslySetInnerHTML={{ __html: markdown(text) }}></span>
-    </span>
+    <div {...restEditorProps} style={style}>
+      <div dangerouslySetInnerHTML={{ __html: markdown(text) }}></div>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { Drawer, Radio, Button } from 'antd';
 import { GithubOutlined } from '@ant-design/icons';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Store } from '@/store';
+import { Renderer } from '@/renderer';
 import { PCIcon } from './icons/PC';
 import { MobileIcon } from './icons/Mobile';
 import { IPadIcon } from './icons/IPad';
@@ -47,13 +48,8 @@ const Header = observer(({ store, device, onChangeDevice }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
 
   const preview = () => {
-    store.readonly = true;
-    setPreviewVisible(true);
-  };
-
-  const exitPreview = () => {
-    store.readonly = false;
-    setPreviewVisible(false);
+    window.sessionStorage.setItem('page', JSON.stringify(store));
+    window.open('/preview');
   };
 
   return (
@@ -107,15 +103,6 @@ const Header = observer(({ store, device, onChangeDevice }) => {
           />
         </div>
       </Drawer>
-      <Drawer
-        title={'预览'}
-        width="80vw"
-        visible={previewVisible}
-        onClose={exitPreview}
-        footer={null}
-      >
-        <Stage store={store} />
-      </Drawer>
     </>
   );
 });
@@ -128,7 +115,7 @@ const Main = observer(({ store, device }) => {
       <section>
         <LeftPannel store={store} />
       </section>
-      <section style={{ overflow: isPC ? 'hidden' : 'auto', padding: !isPC ? '20px 0' : 0 }}>
+      <section style={{ padding: !isPC ? '20px 0' : 0 }}>
         {!isPC ? (
           <Device device={device}>
             <Stage store={store} />

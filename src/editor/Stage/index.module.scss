@@ -1,13 +1,7 @@
 .container {
   position: relative;
-  height: 100%;
-  padding: 40px 20px 40px;
-  background: #ffffff;
+  min-height: 100%;
+  padding: 40px 16px 40px 14px;
   overflow: auto;
   scroll-behavior: smooth;
-
-  &.isPreview {
-    padding: 0;
-    overflow: auto;
-  }
 }
