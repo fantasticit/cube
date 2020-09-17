@@ -1,6 +1,5 @@
 import React from 'react';
 import { Select } from 'antd';
-import style from './index.module.scss';
 
 export const SelectEditor = ({ schema, value, onChange }) => {
   let { options = [] } = schema;
@@ -12,7 +11,7 @@ export const SelectEditor = ({ schema, value, onChange }) => {
     <div className={'prop-item-editor-wrapper'}>
       <p>
         {schema.title || '单选'}
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </p>
       <div>
         <Select onChange={onChange} value={value} style={{ width: '100%' }}>

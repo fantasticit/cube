@@ -106,10 +106,14 @@ export const STYLE_SCHEMA = {
   letterSpace: {
     title: 'Letter Spacing',
     type: 'text',
+    flexDirection: 'column',
+    alignItems: 'start',
   },
   lineHeight: {
     title: 'Line Height',
     type: 'text',
+    flexDirection: 'column',
+    alignItems: 'start',
   },
   textAlign: {
     title: 'Text Align',

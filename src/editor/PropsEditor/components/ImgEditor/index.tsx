@@ -6,14 +6,14 @@ export const ImgEditor = ({ schema, value, onChange }) => {
   const { width, height } = schema;
 
   return (
-    <div className={style.wrapper}>
+    <div className={'prop-item-editor-wrapper'}>
       <p>
         {schema.title || '图片'}
-        <span className={style.desc}>
+        <span>
           建议尺寸
           {width}*{height}
         </span>
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </p>
       {value ? (
         <div className={style.imgWrapper}>

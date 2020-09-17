@@ -1,13 +1,15 @@
 import React from 'react';
 import { Switch } from 'antd';
-import style from './index.module.scss';
 
 export const SwitchEditor = ({ schema, value, onChange }) => {
   return (
-    <div className={style.wrapper}>
+    <div
+      className={'prop-item-editor-wrapper'}
+      style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+    >
       <span>
         {schema.title || '开关'}
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </span>
       <Switch checked={value} onChange={onChange} />
     </div>

@@ -1,15 +1,22 @@
 import React from 'react';
 import { InputNumber } from 'antd';
-import style from './index.module.scss';
 
 export const NumberEditor = ({ schema, value, onChange }) => {
-  const { min = -Infinity } = schema;
+  const { min = -Infinity, flexDirection = 'row', alignItems = 'start' } = schema;
 
   return (
-    <div className={style.wrapper}>
+    <div
+      className={'prop-item-editor-wrapper'}
+      style={{
+        display: 'flex',
+        flexDirection,
+        justifyContent: 'space-between',
+        alignItems,
+      }}
+    >
       <span>
         {schema.title || '文本'}
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </span>
       <div>
         <InputNumber value={value} onChange={onChange} min={min} />

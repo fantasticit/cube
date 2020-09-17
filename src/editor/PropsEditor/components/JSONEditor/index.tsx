@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import isEqual from 'lodash/isEqual';
 import { Button } from 'antd';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import style from './index.module.scss';
 
 let lastValue = null;
 
@@ -31,7 +30,7 @@ export const JSONEditor = ({ schema, value: propsValue, onChange }) => {
     <div className={'prop-item-editor-wrapper'}>
       <p>
         {schema.title || '文本'}
-        <span className={style.desc}>{schema.desc}</span>
+        <span>{schema.desc}</span>
       </p>
       <main>
         <CodeMirror

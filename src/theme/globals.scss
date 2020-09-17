@@ -80,7 +80,8 @@ body {
       margin-top: 1em;
     }
 
-    > p {
+    > p,
+    > span {
       color: var(--editor-regular-text);
       font-size: 12px;
     }
