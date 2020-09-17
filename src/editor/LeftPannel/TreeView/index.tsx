@@ -4,7 +4,7 @@ import { DownOutlined, CloseOutlined, EyeOutlined, EyeInvisibleOutlined } from '
 import cloneDeep from 'lodash/cloneDeep';
 import { observer } from 'mobx-react';
 import { Store } from '@/store';
-import { render as renderIndicator } from '@/renderer/indicator';
+import { render as renderIndicator } from '@/indicator';
 import styles from './index.module.scss';
 
 interface IProps {

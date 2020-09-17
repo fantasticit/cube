@@ -1,7 +1,7 @@
 import React from 'react';
 import { Store } from '@/store';
 import { plugins } from '@/plugins';
-import { render as renderIndicator } from './indicator';
+import { render as renderIndicator } from '../indicator';
 
 export const render = (component, idx, store: Store, path = '', readonly) => {
   /* eslint-disable no-param-reassign */

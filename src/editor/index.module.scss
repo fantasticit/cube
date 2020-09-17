@@ -49,15 +49,13 @@
     flex-direction: row;
     height: calc(100vh - 52px);
 
-    > section {
-      // height: 100%;
-      // overflow: auto;
-    }
-
     > section:nth-of-type(2) {
       flex: 1;
-      // height: 100%;
+      height: 100%;
       border-left: 1px solid #dddddd;
+      background-image: linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .05) 25%, rgba(0, 0, 0, .05) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .05) 75%, rgba(0, 0, 0, .05) 76%, transparent 77%, transparent);
+      background-size: 20px 20px;
+      background-color: transparent;
       overflow: auto;
       border-right: 1px solid #dddddd;
     }

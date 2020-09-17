@@ -6,6 +6,7 @@ import { observable, action, transaction } from 'mobx';
 import merge from 'lodash/merge';
 import { plugins } from 'plugins';
 import { uuid } from 'utils/uuid';
+import { clear as clearIndicator } from '@/indicator';
 import { RuntimeStore } from './RuntimeStore';
 import { IComponentConfig } from './type';
 
@@ -163,6 +164,7 @@ export class ComponentStore {
       const deleted = target.splice(segments.slice(-1)[0], 1);
 
       if (this.selectedComponentInfo.path === path) {
+        clearIndicator();
         this.selectedComponentInfo = { props: {}, schema: {}, path: '' };
       }
       // FIXME: 属性无法删除

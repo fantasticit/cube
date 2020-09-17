@@ -1,7 +1,6 @@
 .container {
   position: relative;
-  min-height: 100%;
+  max-width: 1440px;
   padding: 40px 16px 40px 14px;
-  overflow: auto;
   scroll-behavior: smooth;
 }
