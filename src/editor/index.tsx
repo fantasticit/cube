@@ -132,6 +132,7 @@ const Main = observer(({ store, device }) => {
 });
 
 const store = new Store({
+  readonly: false,
   components: SimpleArticleManage.components,
   apis: SimpleArticleManage.apis,
 });

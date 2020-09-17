@@ -9,13 +9,14 @@ import { RuntimeStore } from './RuntimeStore';
 export type { IApiConfig, IComponentConfig, IPageConfig };
 
 export class Store {
-  @observable readonly = false;
+  @observable readonly = true;
   @observable eventStore: EventStore;
   @observable runtimeStore: RuntimeStore;
   @observable apiStore: ApiStore;
   @observable componentStore: ComponentStore;
 
-  constructor({ components = [], apis = [] }) {
+  constructor({ readonly = true, components = [], apis = [] }) {
+    this.readonly = readonly;
     this.eventStore = new EventStore();
     this.runtimeStore = new RuntimeStore();
     this.apiStore = new ApiStore(this.runtimeStore, apis);
