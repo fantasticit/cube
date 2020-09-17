@@ -13,7 +13,6 @@
     "axios": "^0.20.0",
     "classnames": "^2.2.6",
     "codemirror": "^5.57.0",
-    "interactjs": "^1.9.22",
     "lodash": "^4.17.20",
     "mobx": "^5.15.6",
     "mobx-react": "^6.3.0",
@@ -22,7 +21,6 @@
     "react-codemirror2": "^7.2.1",
     "react-color": "^2.18.1",
     "react-dom": "16.13.1",
-    "react-measure": "^2.5.2",
     "reflect-metadata": "^0.1.13",
     "showdown": "^1.9.1"
   },
