@@ -2,7 +2,7 @@
 
 <div align="center">
 <p align="center">中后台页面搭建低代码平台</p>
-<img width="100%" alt="cube" src="https://user-images.githubusercontent.com/26452939/94108948-c9960380-fe72-11ea-81de-2512022ade8c.png">
+<img width="100%" alt="cube" src="https://user-images.githubusercontent.com/26452939/95151477-515a0700-07bd-11eb-96d4-8eb56f74c776.png">
 </div>
 
 ## ✨ 特性
