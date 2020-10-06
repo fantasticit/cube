@@ -1,10 +1,8 @@
 <h1 align="center">cube</h1>
 
 <div align="center">
-中后台页面搭建低代码平台
-
+<p align="center">中后台页面搭建低代码平台</p>
 <img width="600" alt="cube" src="https://user-images.githubusercontent.com/26452939/94108948-c9960380-fe72-11ea-81de-2512022ade8c.png">
-
 </div>
 
 ## ✨ 特性
