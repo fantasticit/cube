@@ -5,6 +5,11 @@
 <img width="100%" alt="cube" src="https://user-images.githubusercontent.com/26452939/95151477-515a0700-07bd-11eb-96d4-8eb56f74c776.png">
 </div>
 
+## 🌍 地址
+
+- [https://cube-pink.vercel.app/odin/editor](https://cube-pink.vercel.app/odin/editor)
+- [https://blog.wipi.tech/odin/editor](https://blog.wipi.tech/odin/editor)
+
 ## ✨ 特性
 
 - 💎 支持 `API` 接口交互
